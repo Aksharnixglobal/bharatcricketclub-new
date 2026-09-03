@@ -27,6 +27,9 @@ export const Home: React.FC = () => {
             <span className="hero-star-dots">★ &nbsp; ★ &nbsp; ★</span>
             <div className="hero-star-line r"></div>
           </div>
+          <div className="hero-brand-emblem">
+            <img src="./images/brand/bcc-logo.jpg" alt="Bharat Cricket Club Crest" className="hero-bcc-emblem" />
+          </div>
           <p className="hero-eyebrow">Welcome to</p>
           <h1 className="hero-title">Bharat Cricket Club</h1>
           <div className="hero-rule"></div>
@@ -87,7 +90,13 @@ export const Home: React.FC = () => {
 
             <div className="spotlight-scoreboard">
               <div className="spotlight-team">
-                <div className="spotlight-team-icon">🏏</div>
+                <div className="spotlight-team-icon">
+                  <img 
+                    src="./images/brand/bcc-logo.jpg" 
+                    alt="Bharat Cricket Club Logo" 
+                    style={{ width: '56px', height: '56px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--gold-light)', boxShadow: '0 0 14px rgba(216,144,24,0.35)', display: 'block' }} 
+                  />
+                </div>
                 <div className="spotlight-team-name">Bharat CC</div>
                 <div className="spotlight-score">113/4</div>
                 <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', marginTop: '2px' }}>Target: 113 in 30 Ov</div>
