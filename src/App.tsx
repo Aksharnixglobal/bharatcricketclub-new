@@ -111,32 +111,32 @@ export default function App() {
     {
       name: "Pratik Patel",
       role: "President, BCC | Captain, BCC T20 & DLCL T30",
-      image: "/images/leaders/pratik-patel.jpg"
+      image: "./images/leaders/pratik-patel.jpg"
     },
     {
       name: "Jugal Chokshi",
       role: "Executive Director & Club Manager",
-      image: "/images/leaders/jugal-chokshi.jpg"
+      image: "./images/leaders/jugal-chokshi.jpg"
     },
     {
       name: "Nilpesh Patel",
       role: "Director of Strategy & Growth",
-      image: "/images/leaders/nilpesh-patel.jpg"
+      image: "./images/leaders/nilpesh-patel.jpg"
     },
     {
       name: "Bhavik Gandhi",
       role: "Founding Core Member & Captain, BCC DFCL T20",
-      image: "/images/leaders/bhavik-gandhi.jpg"
+      image: "./images/leaders/bhavik-gandhi.jpg"
     },
     {
       name: "Charles Patel",
       role: "Technology Director",
-      image: "/images/leaders/charles-patel.jpg"
+      image: "./images/leaders/charles-patel.jpg"
     },
     {
       name: "Darshan Patel",
       role: "Director of Media & Content Production",
-      image: "/images/leaders/darshan-patel.jpg"
+      image: "./images/leaders/darshan-patel.jpg"
     }
   ];
 
@@ -208,7 +208,7 @@ export default function App() {
       <nav className="navbar">
         <div className="container navbar-container">
           <a href="#" className="logo" onClick={() => { setActiveTab('home'); scrollToSection('home'); }}>
-            <img src="/images/brand/bcc-logo.jpg" alt="Bharat Cricket Club Logo" />
+            <img src="./images/brand/bcc-logo.jpg" alt="Bharat Cricket Club Logo" />
             <div className="logo-text">
               <span className="logo-title">Bharat Cricket Club</span>
               <span className="logo-subtitle">By UGNT</span>
@@ -284,9 +284,9 @@ export default function App() {
           <p className="hero-tagline">One Club. One Pride.</p>
           
           <div className="hero-mahadev">
-            <img src="/images/assets/om.png" alt="Om Symbol" className="om-icon" />
+            <img src="./images/assets/om.png" alt="Om Symbol" className="om-icon" />
             <span>Har Har Mahadev</span>
-            <img src="/images/assets/om.png" alt="Om Symbol" className="om-icon" />
+            <img src="./images/assets/om.png" alt="Om Symbol" className="om-icon" />
           </div>
 
           <div className="hero-buttons">
@@ -594,7 +594,7 @@ export default function App() {
                 <h3 className="font-oswald" style={{ color: 'white', fontSize: '1.2rem', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '8px' }}>
                   Scan Zelle QR Code
                 </h3>
-                <img src="/images/brand/zelle-qr.jpg" alt="Zelle QR Code" className="zelle-qr-img" />
+                <img src="./images/brand/zelle-qr.jpg" alt="Zelle QR Code" className="zelle-qr-img" />
                 <div style={{ color: 'var(--gold-light)', fontSize: '0.8rem', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase' }}>
                   Bharat Cricket Club
                 </div>
@@ -737,7 +737,7 @@ export default function App() {
           <div className="footer-grid">
             <div className="footer-brand">
               <a href="#" className="logo" onClick={() => scrollToSection('home')}>
-                <img src="/images/brand/bcc-logo.jpg" alt="Logo" />
+                <img src="./images/brand/bcc-logo.jpg" alt="Logo" />
                 <div className="logo-text">
                   <span className="logo-title">Bharat Cricket Club</span>
                   <span className="logo-subtitle">By UGNT</span>
@@ -775,7 +775,7 @@ export default function App() {
           </div>
           
           <div className="ugnt-support" style={{ textAlign: 'center', margin: '2rem 0', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-            <img src="/images/brand/ugnt-logo.png" alt="UGNT Logo" style={{ width: '70px', height: '70px', borderRadius: '50%', marginBottom: '8px', border: '1px solid rgba(216, 144, 24, 0.3)' }} />
+            <img src="./images/brand/ugnt-logo.png" alt="UGNT Logo" style={{ width: '70px', height: '70px', borderRadius: '50%', marginBottom: '8px', border: '1px solid rgba(216, 144, 24, 0.3)' }} />
             <h3 className="font-oswald" style={{ color: 'white', fontSize: '1rem', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '4px' }}>
               COMMUNITY SUPPORT
             </h3>
