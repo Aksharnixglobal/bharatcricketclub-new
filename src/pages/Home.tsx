@@ -29,6 +29,26 @@ export const Home: React.FC = () => {
     .filter(m => m.status === 'upcoming' || m.status === 'live')
     .slice(0, 3);
 
+  // Latest Victory (most recent win by Bharat Cricket Club)
+  const latestVictory = (scheduleSnapshot.matches as Array<{
+    id?: number;
+    opponent: string;
+    date: string;
+    time: string;
+    venue: string;
+    status: string;
+    type: string;
+    ourScore?: string;
+    ourWickets?: string;
+    oppScore?: string;
+    oppWickets?: string;
+    result?: string;
+  }>).find(m => 
+    m.status === 'completed' && 
+    (m.result?.toLowerCase().includes('bharat cricket club') || m.result?.toLowerCase().includes('bharat cc')) &&
+    m.result?.toLowerCase().includes('won')
+  ) || scheduleSnapshot.matches[0];
+
   return (
     <>
       <Navbar currentPage="home" />
@@ -91,20 +111,20 @@ export const Home: React.FC = () => {
       <section className="section" style={{ paddingTop: '50px' }}>
         <div className="container">
 
-          {/* Upcoming Matches Section */}
-          <div style={{ marginBottom: '55px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: '24px' }}>
+          {/* Section 1: Upcoming Matches (Up to 3) */}
+          <div style={{ marginBottom: '45px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: '20px' }}>
               <div>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'var(--gold-light)', fontSize: '0.78rem', fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: '4px' }}>
                   <Calendar size={14} />
                   <span>Next On The Pitch</span>
                 </div>
-                <h2 className="section-title" style={{ textAlign: 'left', margin: 0, fontSize: '1.9rem' }}>
+                <h2 className="section-title" style={{ textAlign: 'left', margin: 0, fontSize: '1.85rem' }}>
                   Upcoming Matches
                 </h2>
               </div>
-              <a href="fixtures.html" className="btn btn-secondary" style={{ padding: '8px 20px', fontSize: '0.82rem' }}>
-                View All {scheduleSnapshot.matches.length} Results →
+              <a href="fixtures.html" className="btn btn-secondary" style={{ padding: '7px 18px', fontSize: '0.82rem' }}>
+                View All Fixtures →
               </a>
             </div>
 
@@ -155,32 +175,113 @@ export const Home: React.FC = () => {
               </div>
             ) : (
               /* No scheduled upcoming matches currently */
-              <div className="glass-card" style={{ padding: '36px 24px', textAlign: 'center', border: '1.5px solid rgba(216, 144, 24, 0.25)', background: 'linear-gradient(160deg, rgba(14, 34, 68, 0.5) 0%, rgba(7, 20, 40, 0.8) 100%)', borderRadius: '14px' }}>
-                <div style={{ fontSize: '2.4rem', marginBottom: '10px' }}>🏏</div>
-                <h3 className="font-oswald" style={{ fontSize: '1.35rem', color: '#fff', textTransform: 'uppercase', marginBottom: '8px' }}>
+              <div className="glass-card" style={{ padding: '30px 24px', textAlign: 'center', border: '1.5px solid rgba(216, 144, 24, 0.25)', background: 'linear-gradient(160deg, rgba(14, 34, 68, 0.5) 0%, rgba(7, 20, 40, 0.8) 100%)', borderRadius: '14px' }}>
+                <div style={{ fontSize: '2rem', marginBottom: '8px' }}>🏏</div>
+                <h3 className="font-oswald" style={{ fontSize: '1.25rem', color: '#fff', textTransform: 'uppercase', marginBottom: '6px' }}>
                   No Upcoming Matches Scheduled
                 </h3>
-                <p style={{ color: 'rgba(255, 255, 255, 0.65)', maxWidth: '560px', margin: '0 auto 20px', fontSize: '0.92rem', lineHeight: '1.5' }}>
+                <p style={{ color: 'rgba(255, 255, 255, 0.65)', maxWidth: '560px', margin: '0 auto 16px', fontSize: '0.9rem', lineHeight: '1.5' }}>
                   All scheduled Fall 2026 matches have concluded. Stay tuned for upcoming tournament announcements and playoff fixtures.
                 </p>
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
-                  <a href="fixtures.html" className="btn btn-primary" style={{ padding: '9px 22px', fontSize: '0.85rem' }}>
-                    View Completed Match Results ({scheduleSnapshot.matches.length})
+                  <a href="fixtures.html" className="btn btn-secondary" style={{ padding: '7px 18px', fontSize: '0.82rem' }}>
+                    View Match Results ({scheduleSnapshot.matches.length})
                   </a>
                   <a 
                     href="https://www.dallascricket.org/team/308/schedules" 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="btn btn-secondary" 
-                    style={{ padding: '9px 20px', fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                    style={{ padding: '7px 18px', fontSize: '0.82rem', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
                   >
                     <span>DCL Portal</span>
-                    <ExternalLink size={13} />
+                    <ExternalLink size={12} />
                   </a>
                 </div>
               </div>
             )}
           </div>
+
+          {/* Section 2: Results (Last Victory Spotlight) */}
+          {latestVictory && (
+            <div style={{ marginBottom: '55px' }}>
+              <div className="home-match-spotlight">
+                <div className="spotlight-top-bar">
+                  <div className="spotlight-tag">
+                    <Trophy size={15} />
+                    <span>Latest Result · Last Victory ({latestVictory.type})</span>
+                  </div>
+                  <div className="spotlight-status">
+                    ✓ {latestVictory.result?.replace(/^Bharat Cricket Club is won by/i, 'Won by').replace(/^Bharat Cricket Club\s+won by/i, 'Won by') || 'Victory'}
+                  </div>
+                </div>
+
+                <div className="spotlight-scoreboard">
+                  {/* Bharat CC Side with Official Logo */}
+                  <div className="spotlight-team">
+                    <div className="spotlight-team-icon">
+                      <img 
+                        src="./images/brand/bcc-logo.jpg" 
+                        alt="Bharat Cricket Club Logo" 
+                        style={{ width: '56px', height: '56px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--gold-light)', boxShadow: '0 0 14px rgba(216,144,24,0.35)', display: 'block' }} 
+                      />
+                    </div>
+                    <div className="spotlight-team-name">Bharat CC</div>
+                    <div className="spotlight-score">
+                      {latestVictory.ourScore}/{latestVictory.ourWickets || 0}
+                    </div>
+                    <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', marginTop: '2px' }}>
+                      Target: {latestVictory.ourScore}
+                    </div>
+                  </div>
+
+                  <div className="spotlight-vs">VS</div>
+
+                  {/* Opponent Side with Regular Cricket Emoji */}
+                  <div className="spotlight-team">
+                    <div className="spotlight-team-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2.2rem' }}>
+                      <span>🏏</span>
+                    </div>
+                    <div className="spotlight-team-name">{latestVictory.opponent}</div>
+                    <div className="spotlight-score" style={{ color: 'rgba(255,255,255,0.7)' }}>
+                      {latestVictory.oppScore}/{latestVictory.oppWickets || 0}
+                    </div>
+                    <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', marginTop: '2px' }}>
+                      {latestVictory.oppWickets === '10' ? 'All Out' : `Innings closed`}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="spotlight-footer">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'rgba(255,255,255,0.65)', fontSize: '0.85rem' }}>
+                    <MapPin size={14} color="var(--gold-light)" />
+                    <span>{latestVictory.venue} · {latestVictory.date}</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+                    {latestVictory.id && (
+                      <a 
+                        href={`https://www.dallascricket.org/match/${latestVictory.id}/scorecard-view`}
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="btn-scorecard"
+                        style={{ textDecoration: 'none' }}
+                      >
+                        <span>Official Scorecard</span>
+                        <ExternalLink size={12} />
+                      </a>
+                    )}
+                    <a 
+                      href="fixtures.html" 
+                      className="btn-squad-link"
+                      style={{ textDecoration: 'none' }}
+                    >
+                      <span>All 14 Match Results →</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Section Heading */}
           <div style={{ textAlign: 'center', marginBottom: '40px' }}>
