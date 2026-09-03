@@ -105,7 +105,21 @@ export const Home: React.FC = () => {
               <div className="spotlight-vs">VS</div>
 
               <div className="spotlight-team">
-                <div className="spotlight-team-icon">🛡️</div>
+                <div className="spotlight-team-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <svg viewBox="0 0 44 44" width="56" height="56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="22" cy="22" r="21" fill="#08172c" stroke="rgba(216, 144, 24, 0.45)" strokeWidth="1.5" />
+                    <line x1="17" y1="16" x2="17" y2="32" stroke="rgba(255,255,255,0.4)" strokeWidth="1.6" strokeLinecap="round"/>
+                    <line x1="22" y1="15" x2="22" y2="32" stroke="rgba(255,255,255,0.4)" strokeWidth="1.6" strokeLinecap="round"/>
+                    <line x1="27" y1="16" x2="27" y2="32" stroke="rgba(255,255,255,0.4)" strokeWidth="1.6" strokeLinecap="round"/>
+                    <line x1="15.5" y1="15" x2="28.5" y2="15" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" strokeLinecap="round"/>
+                    <path d="M12 11 L32 35" stroke="#E5A824" strokeWidth="2.8" strokeLinecap="round"/>
+                    <path d="M32 11 L12 35" stroke="#E5A824" strokeWidth="2.8" strokeLinecap="round"/>
+                    <path d="M11 10 L15 15" stroke="#ffffff" strokeWidth="3.2" strokeLinecap="round"/>
+                    <path d="M33 10 L29 15" stroke="#ffffff" strokeWidth="3.2" strokeLinecap="round"/>
+                    <circle cx="22" cy="25" r="5.5" fill="#dc2626" stroke="#ffffff" strokeWidth="0.8"/>
+                    <path d="M20 22 C21.5 24 21.5 26 20 28" stroke="#ffffff" strokeWidth="0.8" strokeDasharray="1 1"/>
+                  </svg>
+                </div>
                 <div className="spotlight-team-name">SPARTANS 11</div>
                 <div className="spotlight-score" style={{ color: 'rgba(255,255,255,0.7)' }}>112/10</div>
                 <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', marginTop: '2px' }}>All Out</div>

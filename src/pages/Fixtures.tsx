@@ -6,6 +6,21 @@ import { fetchLiveSchedules, getCachedSchedules, DCL_SCHEDULES_URL } from '../se
 import type { Match } from '../services/dallasCricket';
 import scheduleSnapshot from '../data/schedule.json';
 
+// Format match results to fit gracefully on one line
+const formatMatchResult = (result?: string): { text: string; isWin: boolean } => {
+  if (!result) return { text: 'Match Completed', isWin: true };
+  const isBccWin = result.toLowerCase().includes('bharat cricket club') || result.toLowerCase().includes('bharat cc');
+  let text = result
+    .replace(/^Bharat Cricket Club is won by/i, 'Won by')
+    .replace(/^Bharat Cricket Club\s+won by/i, 'Won by')
+    .replace(/\.$/, '');
+  
+  if (!isBccWin) {
+    text = text.replace(/won by/i, 'won by');
+  }
+  return { text, isWin: isBccWin };
+};
+
 export const Fixtures: React.FC = () => {
   const [matches, setMatches] = useState<Match[]>(() => {
     const cached = getCachedSchedules();
@@ -13,7 +28,8 @@ export const Fixtures: React.FC = () => {
     return (scheduleSnapshot.matches as Match[]) || [];
   });
   const [loadingMatches, setLoadingMatches] = useState(false);
-  const [fixturesFilter, setFixturesFilter] = useState<'all' | 'upcoming' | 'completed'>('all');
+  // Default to 'upcoming' as first tab requested
+  const [fixturesFilter, setFixturesFilter] = useState<'upcoming' | 'completed' | 'all'>('upcoming');
   const [seasonFilter, setSeasonFilter] = useState<'Fall 2026' | 'All'>('Fall 2026');
   const [lastSynced, setLastSynced] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<'table' | 'grid'>('table');
@@ -43,16 +59,15 @@ export const Fixtures: React.FC = () => {
            (m.type || '').toLowerCase().includes('2026');
   });
 
-  const filteredMatches = seasonalMatches.filter(m => {
-    if (fixturesFilter === 'all') return true;
-    if (fixturesFilter === 'upcoming') return m.status === 'upcoming' || m.status === 'live';
-    if (fixturesFilter === 'completed') return m.status === 'completed';
-    return true;
-  });
-
-  const displayedMatches = filteredMatches;
   const upcomingMatches = seasonalMatches.filter(m => m.status === 'upcoming' || m.status === 'live');
   const completedMatches = seasonalMatches.filter(m => m.status === 'completed');
+
+  // Display logic: When 'all' is selected, upcoming matches come first, then results
+  const displayedMatches = fixturesFilter === 'upcoming'
+    ? upcomingMatches
+    : fixturesFilter === 'completed'
+    ? completedMatches
+    : [...upcomingMatches, ...completedMatches];
 
   return (
     <>
@@ -60,7 +75,7 @@ export const Fixtures: React.FC = () => {
 
       {/* Page Header */}
       <section className="page-header">
-        <div className="container">
+        <div className="container fixtures-container">
           <div className="header-badge-row">
             <div className="hero-star-line"></div>
             <span className="hero-star-dots">★ &nbsp; ★ &nbsp; ★</span>
@@ -75,7 +90,7 @@ export const Fixtures: React.FC = () => {
 
       {/* Fixtures Section */}
       <section className="section" style={{ paddingTop: '20px' }}>
-        <div className="container">
+        <div className="container fixtures-container">
 
           {/* Season Selector */}
           <div className="season-selector-bar">
@@ -98,16 +113,9 @@ export const Fixtures: React.FC = () => {
             </div>
           </div>
 
-          {/* Fixtures Filter & Action Bar */}
+          {/* Fixtures Filter & Action Bar: Upcoming 1st, Results 2nd, All Matches 3rd */}
           <div className="fixtures-toolbar">
             <div className="fixtures-filters">
-              <button 
-                type="button"
-                className={`fixtures-pill ${fixturesFilter === 'all' ? 'active' : ''}`}
-                onClick={() => setFixturesFilter('all')}
-              >
-                All Matches <span className="pill-count">{seasonalMatches.length}</span>
-              </button>
               <button 
                 type="button"
                 className={`fixtures-pill ${fixturesFilter === 'upcoming' ? 'active' : ''}`}
@@ -121,6 +129,13 @@ export const Fixtures: React.FC = () => {
                 onClick={() => setFixturesFilter('completed')}
               >
                 Results <span className="pill-count">{completedMatches.length}</span>
+              </button>
+              <button 
+                type="button"
+                className={`fixtures-pill ${fixturesFilter === 'all' ? 'active' : ''}`}
+                onClick={() => setFixturesFilter('all')}
+              >
+                All Matches <span className="pill-count">{seasonalMatches.length}</span>
               </button>
             </div>
 
@@ -210,199 +225,209 @@ export const Fixtures: React.FC = () => {
 
               {/* Panel Body */}
               <div className="panel-table-body">
-                {displayedMatches.map((match, idx) => (
-                  <div key={match.id || idx} className="panel-table-row">
-                    
-                    {/* Col 1: Date & League */}
-                    <div className="panel-col-meta">
-                      <div className="panel-date-badge">
-                        <Calendar size={14} color="var(--gold-light)" />
-                        <span>{match.date}</span>
-                      </div>
-                      {match.id ? (
-                        <a 
-                          href={`https://www.dallascricket.org/match/${match.id}/scorecard-view`}
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="panel-type-text"
-                          title={match.type}
-                        >
-                          {match.type}
-                        </a>
-                      ) : (
-                        <span className="panel-type-text" title={match.type}>{match.type}</span>
-                      )}
-                      <span className={`match-status ${
-                        match.status === 'completed' ? 'status-completed' : 
-                        match.status === 'live' ? 'status-live' : 'status-upcoming'
-                      }`} style={{ width: 'fit-content', marginTop: '2px' }}>
-                        {match.status}
-                      </span>
-                    </div>
-
-                    {/* Col 2: Matchup & Scores */}
-                    <div className="panel-col-matchup">
-                      {/* Bharat CC */}
-                      <div className="panel-team-entry">
-                        <div className="panel-team-crest">
-                          <img src="./images/brand/bcc-logo.jpg" alt="Bharat Cricket Club Logo" />
+                {displayedMatches.map((match, idx) => {
+                  const outcome = formatMatchResult(match.result);
+                  return (
+                    <div key={match.id || idx} className="panel-table-row">
+                      
+                      {/* Col 1: Date & League */}
+                      <div className="panel-col-meta">
+                        <div className="panel-date-badge">
+                          <Calendar size={14} color="var(--gold-light)" />
+                          <span>{match.date}</span>
                         </div>
-                        <div className="panel-team-title">Bharat CC</div>
-                        {match.status === 'completed' && match.ourScore !== undefined && (
-                          <div className="panel-team-score-num">
-                            {match.ourScore}
-                            <span style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.5)' }}>/{match.ourWickets || 0}</span>
+                        {match.id ? (
+                          <a 
+                            href={`https://www.dallascricket.org/match/${match.id}/scorecard-view`}
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="panel-type-text"
+                            title={match.type}
+                          >
+                            {match.type}
+                          </a>
+                        ) : (
+                          <span className="panel-type-text" title={match.type}>{match.type}</span>
+                        )}
+                        <span className={`match-status ${
+                          match.status === 'completed' ? 'status-completed' : 
+                          match.status === 'live' ? 'status-live' : 'status-upcoming'
+                        }`} style={{ width: 'fit-content', marginTop: '2px' }}>
+                          {match.status}
+                        </span>
+                      </div>
+
+                      {/* Col 2: Matchup & Scores */}
+                      <div className="panel-col-matchup">
+                        {/* Bharat CC (with official BCC logo) */}
+                        <div className="panel-team-entry">
+                          <div className="panel-team-crest">
+                            <img src="./images/brand/bcc-logo.jpg" alt="Bharat Cricket Club Logo" />
+                          </div>
+                          <div className="panel-team-title">Bharat CC</div>
+                          {match.status === 'completed' && match.ourScore !== undefined && (
+                            <div className="panel-team-score-num">
+                              {match.ourScore}
+                              <span style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.5)' }}>/{match.ourWickets || 0}</span>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* VS Divider */}
+                        <div className="panel-versus-pill">VS</div>
+
+                        {/* Opponent (with regular ball and bat emoji 🏏) */}
+                        <div className="panel-team-entry reverse">
+                          {match.status === 'completed' && match.oppScore !== undefined && (
+                            <div className="panel-team-score-num opp-score">
+                              {match.oppScore}
+                              <span style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.5)' }}>/{match.oppWickets || 0}</span>
+                            </div>
+                          )}
+                          <div className="panel-team-title" style={{ color: 'rgba(255,255,255,0.85)' }}>{match.opponent}</div>
+                          <div className="panel-team-crest opp-crest">
+                            <span style={{ fontSize: '1.25rem' }}>🏏</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Col 3: Venue & Time */}
+                      <div className="panel-col-venue">
+                        <div className="panel-venue-ground">
+                          <MapPin size={14} color="var(--gold-light)" style={{ flexShrink: 0 }} />
+                          <span>{match.venue}</span>
+                        </div>
+                        {match.time && (
+                          <div className="panel-venue-time">
+                            <Clock size={11} style={{ display: 'inline', marginRight: '4px', verticalAlign: '-1px' }} />
+                            <span>{match.time}</span>
                           </div>
                         )}
                       </div>
 
-                      {/* VS Divider */}
-                      <div className="panel-versus-pill">VS</div>
-
-                      {/* Opponent */}
-                      <div className="panel-team-entry reverse">
-                        {match.status === 'completed' && match.oppScore !== undefined && (
-                          <div className="panel-team-score-num opp-score">
-                            {match.oppScore}
-                            <span style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.5)' }}>/{match.oppWickets || 0}</span>
-                          </div>
+                      {/* Col 4: Result / Status */}
+                      <div className="panel-col-result">
+                        {match.status === 'completed' ? (
+                          <span className={`panel-outcome-badge ${outcome.isWin ? '' : 'loss'}`}>
+                            {outcome.text}
+                          </span>
+                        ) : (
+                          <span className="panel-outcome-badge upcoming">
+                            Upcoming · {match.time || 'TBD'}
+                          </span>
                         )}
-                        <div className="panel-team-title" style={{ color: 'rgba(255,255,255,0.85)' }}>{match.opponent}</div>
-                        <div className="panel-team-crest opp-crest">🛡️</div>
                       </div>
-                    </div>
 
-                    {/* Col 3: Venue & Time */}
-                    <div className="panel-col-venue">
-                      <div className="panel-venue-ground" title={match.venue}>
-                        <MapPin size={13} color="var(--gold-light)" style={{ flexShrink: 0 }} />
-                        <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{match.venue}</span>
+                      {/* Col 5: Action */}
+                      <div className="panel-col-action">
+                        {match.id ? (
+                          <a 
+                            href={`https://www.dallascricket.org/match/${match.id}/scorecard-view`}
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="btn-scorecard"
+                            title={`View official scorecard on Dallas Cricket League`}
+                          >
+                            <span>Scorecard</span>
+                            <ExternalLink size={12} />
+                          </a>
+                        ) : (
+                          <span style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.3)' }}>—</span>
+                        )}
                       </div>
-                      {match.time && (
-                        <div className="panel-venue-time">
-                          <Clock size={11} style={{ display: 'inline', marginRight: '4px', verticalAlign: '-1px' }} />
-                          <span>{match.time}</span>
-                        </div>
-                      )}
-                    </div>
 
-                    {/* Col 4: Result / Status */}
-                    <div className="panel-col-result">
-                      {match.status === 'completed' ? (
-                        <span className="panel-outcome-badge">
-                          {match.result || 'Match Completed'}
-                        </span>
-                      ) : (
-                        <span className="panel-outcome-badge upcoming">
-                          Upcoming · {match.time || 'TBD'}
-                        </span>
-                      )}
                     </div>
-
-                    {/* Col 5: Action */}
-                    <div className="panel-col-action">
-                      {match.id ? (
-                        <a 
-                          href={`https://www.dallascricket.org/match/${match.id}/scorecard-view`}
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="btn-scorecard"
-                          title={`View official scorecard on Dallas Cricket League`}
-                        >
-                          <span>Scorecard</span>
-                          <ExternalLink size={12} />
-                        </a>
-                      ) : (
-                        <span style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.3)' }}>—</span>
-                      )}
-                    </div>
-
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           ) : (
             /* Box Cards Grid View */
             <div className="card-grid">
-              {displayedMatches.map((match, idx) => (
-                <div key={match.id || idx} className="glass-card match-card">
-                  <div className="match-header">
-                    {match.id ? (
-                      <a 
-                        href={`https://www.dallascricket.org/match/${match.id}/scorecard-view`}
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="match-header-link"
-                        title="View match on Dallas Cricket League"
-                      >
-                        {match.type}
-                      </a>
-                    ) : (
-                      <span title={match.type}>{match.type}</span>
-                    )}
-                    <span className={`match-status ${
-                      match.status === 'completed' ? 'status-completed' : 
-                      match.status === 'live' ? 'status-live' : 'status-upcoming'
-                    }`}>
-                      {match.status}
-                    </span>
-                  </div>
-                  <div className="match-teams">
-                    <div className="team">
-                      <div className="team-logo">
-                        <img src="./images/brand/bcc-logo.jpg" alt="Bharat Cricket Club Logo" />
-                      </div>
-                      <div className="team-name">Bharat CC</div>
-                      {match.status === 'completed' && match.ourScore !== undefined && (
-                        <div className="team-score">
-                          {match.ourScore}
-                          <span className="team-wickets">/{match.ourWickets || 0}</span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="match-versus">VS</div>
-                    <div className="team">
-                      <div className="team-logo">🛡️</div>
-                      <div className="team-name">{match.opponent}</div>
-                      {match.status === 'completed' && match.oppScore !== undefined && (
-                        <div className="team-score">
-                          {match.oppScore}
-                          <span className="team-wickets">/{match.oppWickets || 0}</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="match-footer">
-                    <div className="match-venue" title={match.venue}>
-                      <MapPin size={14} />
-                      <span>{match.venue}</span>
-                    </div>
-                    <div className="match-result">
-                      {match.status === 'completed' ? (
-                        match.result
+              {displayedMatches.map((match, idx) => {
+                const outcome = formatMatchResult(match.result);
+                return (
+                  <div key={match.id || idx} className="glass-card match-card">
+                    <div className="match-header">
+                      {match.id ? (
+                        <a 
+                          href={`https://www.dallascricket.org/match/${match.id}/scorecard-view`}
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="match-header-link"
+                          title="View match on Dallas Cricket League"
+                        >
+                          {match.type}
+                        </a>
                       ) : (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--gold-light)' }}>
-                          <Clock size={14} /> {match.date} {match.time ? `• ${match.time}` : ''}
-                        </div>
+                        <span title={match.type}>{match.type}</span>
                       )}
+                      <span className={`match-status ${
+                        match.status === 'completed' ? 'status-completed' : 
+                        match.status === 'live' ? 'status-live' : 'status-upcoming'
+                      }`}>
+                        {match.status}
+                      </span>
                     </div>
+                    <div className="match-teams">
+                      <div className="team">
+                        <div className="team-logo">
+                          <img src="./images/brand/bcc-logo.jpg" alt="Bharat Cricket Club Logo" />
+                        </div>
+                        <div className="team-name">Bharat CC</div>
+                        {match.status === 'completed' && match.ourScore !== undefined && (
+                          <div className="team-score">
+                            {match.ourScore}
+                            <span className="team-wickets">/{match.ourWickets || 0}</span>
+                          </div>
+                        )}
+                      </div>
+                      <div className="match-versus">VS</div>
+                      <div className="team">
+                        <div className="team-logo">
+                          <span>🏏</span>
+                        </div>
+                        <div className="team-name">{match.opponent}</div>
+                        {match.status === 'completed' && match.oppScore !== undefined && (
+                          <div className="team-score">
+                            {match.oppScore}
+                            <span className="team-wickets">/{match.oppWickets || 0}</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="match-footer">
+                      <div className="match-venue" title={match.venue}>
+                        <MapPin size={14} />
+                        <span>{match.venue}</span>
+                      </div>
+                      <div className="match-result">
+                        {match.status === 'completed' ? (
+                          outcome.text
+                        ) : (
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--gold-light)' }}>
+                            <Clock size={14} /> {match.date} {match.time ? `• ${match.time}` : ''}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    {match.id && (
+                      <div className="match-card-action">
+                        <a 
+                          href={`https://www.dallascricket.org/match/${match.id}/scorecard-view`}
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="btn-scorecard"
+                          title={`View official scorecard for match #${match.id}`}
+                        >
+                          <span>{match.status === 'completed' ? 'Scorecard' : 'Match Details'}</span>
+                          <ExternalLink size={12} />
+                        </a>
+                      </div>
+                    )}
                   </div>
-                  {match.id && (
-                    <div className="match-card-action">
-                      <a 
-                        href={`https://www.dallascricket.org/match/${match.id}/scorecard-view`}
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="btn-scorecard"
-                        title={`View official scorecard for match #${match.id}`}
-                      >
-                        <span>{match.status === 'completed' ? 'Scorecard' : 'Match Details'}</span>
-                        <ExternalLink size={12} />
-                      </a>
-                    </div>
-                  )}
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
 
