@@ -1,7 +1,17 @@
 import React from 'react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
-import { ArrowRight, Trophy, Users, Calendar, ShieldCheck, HeartHandshake, Award } from 'lucide-react';
+import { 
+  ArrowRight, 
+  Trophy, 
+  Users, 
+  Calendar, 
+  ShieldCheck, 
+  HeartHandshake, 
+  Award,
+  MapPin,
+  ExternalLink
+} from 'lucide-react';
 
 export const Home: React.FC = () => {
   return (
@@ -30,159 +40,201 @@ export const Home: React.FC = () => {
 
           <div className="hero-buttons">
             <a href="join.html" className="btn btn-primary">
-              Join Us <ArrowRight size={14} style={{ marginLeft: '4px' }} />
+              Join The Club <ArrowRight size={14} style={{ marginLeft: '4px' }} />
             </a>
-            <a href="team.html" className="btn btn-secondary">
-              Meet Our Teams
+            <a href="fixtures.html" className="btn btn-secondary">
+              Live Fixtures & Results
             </a>
           </div>
         </div>
       </header>
 
-      {/* Club Highlights Banner */}
-      <section className="section" style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
-        <div className="container">
-          <div className="stats-grid">
-            <div className="stat-card glass-card">
-              <div className="stat-number">3</div>
-              <div className="stat-label">Active Squads (T20 & T30)</div>
-            </div>
-            <div className="stat-card glass-card">
-              <div className="stat-number">5+</div>
-              <div className="stat-label">DFW Premier Leagues</div>
-            </div>
-            <div className="stat-card glass-card">
-              <div className="stat-number">100+</div>
-              <div className="stat-label">Matches Played</div>
-            </div>
-            <div className="stat-card glass-card">
-              <div className="stat-number">100%</div>
-              <div className="stat-label">Passion & Community Pride</div>
-            </div>
-          </div>
+      {/* Seamless Golden Hero Stats Ribbon */}
+      <div className="hero-stats">
+        <div className="hero-stat">
+          <div className="hero-stat-num">3</div>
+          <div className="hero-stat-label">Active Squads</div>
         </div>
-      </section>
+        <div className="hero-stat">
+          <div className="hero-stat-num">5+</div>
+          <div className="hero-stat-label">Premier Leagues</div>
+        </div>
+        <div className="hero-stat">
+          <div className="hero-stat-num">100+</div>
+          <div className="hero-stat-label">Match Caps</div>
+        </div>
+        <div className="hero-stat">
+          <div className="hero-stat-num">DFW</div>
+          <div className="hero-stat-label">Dallas-Fort Worth, TX</div>
+        </div>
+      </div>
 
-      {/* About Section */}
-      <section className="section">
+      {/* Main Section */}
+      <section className="section" style={{ paddingTop: '50px' }}>
         <div className="container">
-          <div className="glass-card" style={{ padding: '40px', position: 'relative', overflow: 'hidden' }}>
-            <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-              <h2 className="section-title" style={{ marginBottom: '16px' }}>Our Mission & Heritage</h2>
-              <p style={{ color: 'rgba(255, 255, 255, 0.85)', fontSize: '1.05rem', lineHeight: '1.8', marginBottom: '24px' }}>
-                Bharat Cricket Club By UGNT is a premier North Texas cricket organization rooted in community, 
-                discipline, and competitive excellence. Under the auspices of the United Gujaratis of North Texas, 
-                our club unites dedicated cricket warriors across Dallas-Fort Worth to compete at the highest level of league cricket.
-              </p>
-              <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap', marginTop: '30px' }}>
-                <a href="team.html" className="btn btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-                  <Users size={16} />
-                  <span>View Squads & Honors</span>
+
+          {/* Latest Match Spotlight Banner */}
+          <div className="home-match-spotlight">
+            <div className="spotlight-top-bar">
+              <div className="spotlight-tag">
+                <Trophy size={15} />
+                <span>Featured Match Result · DLCL Fall 30-Over Tournament</span>
+              </div>
+              <div className="spotlight-status">
+                ✓ Victory by 6 Wickets
+              </div>
+            </div>
+
+            <div className="spotlight-scoreboard">
+              <div className="spotlight-team">
+                <div className="spotlight-team-icon">🏏</div>
+                <div className="spotlight-team-name">Bharat CC</div>
+                <div className="spotlight-score">113/4</div>
+                <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', marginTop: '2px' }}>Target: 113 in 30 Ov</div>
+              </div>
+
+              <div className="spotlight-vs">VS</div>
+
+              <div className="spotlight-team">
+                <div className="spotlight-team-icon">🛡️</div>
+                <div className="spotlight-team-name">SPARTANS 11</div>
+                <div className="spotlight-score" style={{ color: 'rgba(255,255,255,0.7)' }}>112/10</div>
+                <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', marginTop: '2px' }}>All Out</div>
+              </div>
+            </div>
+
+            <div className="spotlight-footer">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem' }}>
+                <MapPin size={14} color="var(--gold-light)" />
+                <span>Trenton Cricket Ground North · Aug 30, 2026</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+                <a 
+                  href="https://www.dallascricket.org/match/6021/scorecard-view" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="btn-scorecard"
+                  style={{ textDecoration: 'none' }}
+                >
+                  <span>Official Scorecard</span>
+                  <ExternalLink size={12} />
                 </a>
-                <a href="fixtures.html" className="btn btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-                  <Calendar size={16} />
-                  <span>Live Fixtures & Results</span>
+                <a 
+                  href="fixtures.html" 
+                  className="btn-squad-link"
+                  style={{ textDecoration: 'none' }}
+                >
+                  <span>All 14 Fall Fixtures →</span>
                 </a>
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Explore Grid */}
-      <section className="section" style={{ background: 'rgba(5, 14, 26, 0.5)' }}>
-        <div className="container">
-          <h2 className="section-title">Explore The Club</h2>
-          <p className="section-subtitle">
-            Navigate through our teams, league fixtures, executive leaders, and community partners.
-          </p>
-
-          <div className="card-grid">
-            <a href="team.html" className="glass-card nav-feature-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div className="feature-icon-box">
-                <Users size={28} color="var(--gold-light)" />
-              </div>
-              <h3 className="font-oswald" style={{ fontSize: '1.4rem', color: 'var(--gold-light)', margin: '12px 0 8px', textTransform: 'uppercase' }}>
-                Our Teams
-              </h3>
-              <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.9rem', lineHeight: '1.6' }}>
-                Meet BCC DFCL T20, BCC DLCL T20, and BCC DLCL T30 squads, along with our 2025 and 2024 Star Performers.
-              </p>
-              <div className="feature-card-arrow">Explore Teams →</div>
-            </a>
-
-            <a href="fixtures.html" className="glass-card nav-feature-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div className="feature-icon-box">
-                <Calendar size={28} color="var(--gold-light)" />
-              </div>
-              <h3 className="font-oswald" style={{ fontSize: '1.4rem', color: 'var(--gold-light)', margin: '12px 0 8px', textTransform: 'uppercase' }}>
-                Fixtures & Results
-              </h3>
-              <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.9rem', lineHeight: '1.6' }}>
-                Live Dallas Cricket League integration with scores, upcoming match dates, venues, and official match scorecards.
-              </p>
-              <div className="feature-card-arrow">View Match Center →</div>
-            </a>
-
-            <a href="leagues.html" className="glass-card nav-feature-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div className="feature-icon-box">
-                <Trophy size={28} color="var(--gold-light)" />
-              </div>
-              <h3 className="font-oswald" style={{ fontSize: '1.4rem', color: 'var(--gold-light)', margin: '12px 0 8px', textTransform: 'uppercase' }}>
-                Leagues
-              </h3>
-              <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.9rem', lineHeight: '1.6' }}>
-                Competing across DFCL, DLCL T30, DLCL T20, LECA, and premier leather ball associations across DFW.
-              </p>
-              <div className="feature-card-arrow">See Leagues →</div>
-            </a>
-
-            <a href="leaders.html" className="glass-card nav-feature-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div className="feature-icon-box">
-                <ShieldCheck size={28} color="var(--gold-light)" />
-              </div>
-              <h3 className="font-oswald" style={{ fontSize: '1.4rem', color: 'var(--gold-light)', margin: '12px 0 8px', textTransform: 'uppercase' }}>
-                Club Leaders
-              </h3>
-              <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.9rem', lineHeight: '1.6' }}>
-                Meet the President, Executive Director, Strategy Director, Captains, and Committee driving BCC.
-              </p>
-              <div className="feature-card-arrow">Meet Leadership →</div>
-            </a>
-
-            <a href="sponsors.html" className="glass-card nav-feature-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div className="feature-icon-box">
-                <Award size={28} color="var(--gold-light)" />
-              </div>
-              <h3 className="font-oswald" style={{ fontSize: '1.4rem', color: 'var(--gold-light)', margin: '12px 0 8px', textTransform: 'uppercase' }}>
-                Our Sponsors
-              </h3>
-              <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.9rem', lineHeight: '1.6' }}>
-                Recognizing Infinity Legacy, Grain Market, Rajula's Kitchen, NLP Financial, AksharNix, and TrophyHub.
-              </p>
-              <div className="feature-card-arrow">View Sponsors →</div>
-            </a>
-
-            <a href="community-partner.html" className="glass-card nav-feature-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div className="feature-icon-box">
-                <HeartHandshake size={28} color="var(--gold-light)" />
-              </div>
-              <h3 className="font-oswald" style={{ fontSize: '1.4rem', color: 'var(--gold-light)', margin: '12px 0 8px', textTransform: 'uppercase' }}>
-                Community Partners
-              </h3>
-              <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.9rem', lineHeight: '1.6' }}>
-                Standing shoulder to shoulder with United Gujaratis of North Texas and Battle of Bats.
-              </p>
-              <div className="feature-card-arrow">View Partners →</div>
-            </a>
+          {/* Section Heading */}
+          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+            <h2 className="section-title">Club Central</h2>
+            <p className="section-subtitle">
+              Explore Bharat Cricket Club's competitive squads, live schedules, executive leadership, and sponsors.
+            </p>
           </div>
-        </div>
-      </section>
 
-      {/* Community Spotlight Banner */}
-      <section className="section">
-        <div className="container">
-          <div className="glass-card" style={{ padding: '36px', border: '1px solid rgba(216, 144, 24, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '24px' }}>
+          {/* 6 Structured Non-Overlapping Bento Tiles */}
+          <div className="home-explore-grid">
+            
+            {/* Tile 1: Teams */}
+            <a href="team.html" className="nav-feature-card">
+              <div className="feature-icon-box">
+                <Users size={26} color="var(--gold-light)" />
+              </div>
+              <h3 className="feature-title">Our Teams & Squads</h3>
+              <p className="feature-desc">
+                Meet our 3 competitive squads: BCC DFCL T20, BCC DLCL T20, and BCC DLCL T30, plus our 2025 and 2024 Star Performers.
+              </p>
+              <div className="feature-card-arrow">
+                <span>View Squads & Honours</span>
+                <ArrowRight size={14} />
+              </div>
+            </a>
+
+            {/* Tile 2: Fixtures */}
+            <a href="fixtures.html" className="nav-feature-card">
+              <div className="feature-icon-box">
+                <Calendar size={26} color="var(--gold-light)" />
+              </div>
+              <h3 className="feature-title">Fixtures & Results</h3>
+              <p className="feature-desc">
+                Live match schedules connected directly to Dallas Cricket League. View upcoming match venues, timings, and official scorecards.
+              </p>
+              <div className="feature-card-arrow">
+                <span>Open Match Center</span>
+                <ArrowRight size={14} />
+              </div>
+            </a>
+
+            {/* Tile 3: Leagues */}
+            <a href="leagues.html" className="nav-feature-card">
+              <div className="feature-icon-box">
+                <Trophy size={26} color="var(--gold-light)" />
+              </div>
+              <h3 className="feature-title">Participating Leagues</h3>
+              <p className="feature-desc">
+                Competing across premier North Texas cricket associations including DFCL T20, DLCL T30, DLCL T20, and LECA.
+              </p>
+              <div className="feature-card-arrow">
+                <span>Explore Leagues</span>
+                <ArrowRight size={14} />
+              </div>
+            </a>
+
+            {/* Tile 4: Leaders */}
+            <a href="leaders.html" className="nav-feature-card">
+              <div className="feature-icon-box">
+                <ShieldCheck size={26} color="var(--gold-light)" />
+              </div>
+              <h3 className="feature-title">Club Leadership</h3>
+              <p className="feature-desc">
+                Guided by President Pratik Patel, Manager Jugal Chokshi, and an experienced executive committee fostering teamwork and integrity.
+              </p>
+              <div className="feature-card-arrow">
+                <span>Meet Leadership</span>
+                <ArrowRight size={14} />
+              </div>
+            </a>
+
+            {/* Tile 5: Sponsors */}
+            <a href="sponsors.html" className="nav-feature-card">
+              <div className="feature-icon-box">
+                <Award size={26} color="var(--gold-light)" />
+              </div>
+              <h3 className="feature-title">Our Sponsors</h3>
+              <p className="feature-desc">
+                Supported by Infinity Legacy Group, Grain Market, Rajula's Kitchen, NLP Financial, AksharNix Global, and TrophyHub.
+              </p>
+              <div className="feature-card-arrow">
+                <span>View Sponsors</span>
+                <ArrowRight size={14} />
+              </div>
+            </a>
+
+            {/* Tile 6: Community Partners */}
+            <a href="community-partner.html" className="nav-feature-card">
+              <div className="feature-icon-box">
+                <HeartHandshake size={26} color="var(--gold-light)" />
+              </div>
+              <h3 className="feature-title">Community Partners</h3>
+              <p className="feature-desc">
+                Proud to stand shoulder to shoulder with United Gujaratis of North Texas (UGNT) and Battle of Bats.
+              </p>
+              <div className="feature-card-arrow">
+                <span>View Partners</span>
+                <ArrowRight size={14} />
+              </div>
+            </a>
+
+          </div>
+
+          {/* Community Spotlight Banner */}
+          <div className="glass-card" style={{ marginTop: '50px', padding: '36px', border: '1.5px solid rgba(216, 144, 24, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '24px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
               <img 
                 src="./images/brand/ugnt-logo.png" 
@@ -211,6 +263,25 @@ export const Home: React.FC = () => {
               Visit UGNT Website ↗
             </a>
           </div>
+
+          {/* Join CTA Card */}
+          <div className="glass-card" style={{ marginTop: '40px', padding: '40px 24px', textAlign: 'center', background: 'radial-gradient(circle at 50% 50%, rgba(216,144,24,0.12) 0%, rgba(8,23,44,0.9) 80%)', border: '1.5px solid rgba(216,144,24,0.3)' }}>
+            <h3 className="font-oswald" style={{ fontSize: '1.9rem', color: '#fff', textTransform: 'uppercase', marginBottom: '10px' }}>
+              Ready To Play For Bharat Cricket Club?
+            </h3>
+            <p style={{ color: 'rgba(255,255,255,0.75)', maxWidth: '640px', margin: '0 auto 24px', fontSize: '0.95rem', lineHeight: '1.6' }}>
+              We welcome players of all experience levels across Dallas-Fort Worth. Register online to join our weekly practice nets and selection trials.
+            </p>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '14px', flexWrap: 'wrap' }}>
+              <a href="join.html" className="btn btn-primary" style={{ padding: '12px 28px', fontSize: '0.9rem' }}>
+                Register For Trials <ArrowRight size={14} style={{ marginLeft: '6px' }} />
+              </a>
+              <a href="donate.html" className="btn btn-secondary" style={{ padding: '12px 24px', fontSize: '0.9rem' }}>
+                Player Fees & Zelle
+              </a>
+            </div>
+          </div>
+
         </div>
       </section>
 
