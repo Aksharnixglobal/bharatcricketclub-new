@@ -37,7 +37,9 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage }) => {
       <nav className="navbar">
         <div className="container navbar-container">
           <a href="index.html" className="logo" onClick={closeMenu}>
-            <img src="./images/brand/bcc-logo.jpg" alt="Bharat Cricket Club Logo" />
+            <div className="logo-icon-wrap">
+              <img src="./images/brand/bcc-logo.jpg" alt="Bharat Cricket Club Logo" />
+            </div>
             <div className="logo-text">
               <span className="logo-title">Bharat Cricket Club</span>
               <span className="logo-subtitle">By UGNT</span>

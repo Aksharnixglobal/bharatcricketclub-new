@@ -168,12 +168,49 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: none;
 }
 
+.logo-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #B87A14 0%, #F5C040 50%, #D89018 100%);
+  border: 1.5px solid var(--gold-light);
+  padding: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 16px rgba(216, 144, 24, 0.45);
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+
+.logo:hover .logo-icon-wrap {
+  box-shadow: 0 0 24px rgba(216, 144, 24, 0.75);
+  transform: scale(1.05);
+}
+
+.logo-icon-wrap img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
 .logo img {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: 1.5px solid var(--gold);
+  border: 1.5px solid var(--gold-light);
+  background: linear-gradient(135deg, #B87A14 0%, #F5C040 50%, #D89018 100%);
+  padding: 3px;
   object-fit: cover;
+  box-shadow: 0 0 16px rgba(216, 144, 24, 0.45);
+  transition: var(--transition);
+}
+
+.logo:hover img {
+  box-shadow: 0 0 24px rgba(216, 144, 24, 0.75);
+  transform: scale(1.05);
 }
 
 .logo-text {
