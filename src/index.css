@@ -634,6 +634,292 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.5px;
 }
 
+.match-card-action {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-scorecard {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(216, 144, 24, 0.08);
+  border: 1px solid rgba(216, 144, 24, 0.28);
+  color: var(--gold-light);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-family: var(--font-oswald);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.btn-scorecard:hover {
+  background: rgba(216, 144, 24, 0.22);
+  border-color: var(--gold);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 0 12px rgba(216, 144, 24, 0.25);
+}
+
+.match-header-link {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.match-header-link:hover {
+  color: var(--gold-light);
+}
+
+/* Fixtures Toolbar & Dynamic Live Sync */
+.season-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.season-label {
+  font-family: var(--font-oswald);
+  font-size: 0.85rem;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.season-tabs {
+  display: flex;
+  gap: 6px;
+  background: rgba(6, 16, 30, 0.5);
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.season-tab {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted-light);
+  padding: 5px 14px;
+  border-radius: 6px;
+  font-family: var(--font-oswald);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.season-tab:hover {
+  color: #fff;
+  border-color: rgba(216, 144, 24, 0.2);
+}
+
+.season-tab.active {
+  background: rgba(216, 144, 24, 0.18);
+  color: var(--gold-light);
+  border-color: rgba(216, 144, 24, 0.45);
+  box-shadow: 0 0 10px rgba(216, 144, 24, 0.15);
+}
+
+.fixtures-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 28px;
+  background: rgba(10, 25, 47, 0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 12px 20px;
+}
+
+.fixtures-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.fixtures-pill {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted-light);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-family: var(--font-oswald);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fixtures-pill:hover {
+  border-color: var(--gold);
+  color: var(--gold-light);
+  background: rgba(216, 144, 24, 0.08);
+}
+
+.fixtures-pill.active {
+  background: var(--gold-gradient);
+  border-color: var(--gold);
+  color: #050b14;
+  font-weight: 700;
+  box-shadow: 0 0 15px rgba(216, 144, 24, 0.3);
+}
+
+.pill-count {
+  font-size: 0.75rem;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 1px 7px;
+  border-radius: 10px;
+}
+
+.fixtures-pill.active .pill-count {
+  background: rgba(5, 11, 20, 0.25);
+  color: #050b14;
+}
+
+.fixtures-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.sync-status-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--text-muted-light);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.sync-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+  animation: pulseDot 2s infinite;
+}
+
+.sync-dot.loading {
+  background: var(--gold);
+  box-shadow: 0 0 8px var(--gold);
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.btn-sync {
+  background: rgba(216, 144, 24, 0.1);
+  border: 1px solid rgba(216, 144, 24, 0.3);
+  color: var(--gold-light);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-family: var(--font-oswald);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-sync:hover:not(:disabled) {
+  background: rgba(216, 144, 24, 0.2);
+  border-color: var(--gold);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.btn-sync:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-dcl-link {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted-light);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-family: var(--font-oswald);
+  font-size: 0.82rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-dcl-link:hover {
+  border-color: var(--gold);
+  color: var(--gold-light);
+}
+
+.spin-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.empty-fixtures-card {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 48px 24px;
+  border-radius: 12px;
+  background: rgba(10, 25, 47, 0.3);
+  border: 1px dashed var(--border-color);
+  color: var(--text-muted-light);
+}
+
+.empty-fixtures-card h4 {
+  font-family: var(--font-oswald);
+  font-size: 1.3rem;
+  color: var(--gold-light);
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.empty-fixtures-card p {
+  font-size: 0.92rem;
+  max-width: 540px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
 /* Leaders / Roster Section */
 .leaders-grid {
   display: grid;
