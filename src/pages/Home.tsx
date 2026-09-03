@@ -10,12 +10,13 @@ import {
   HeartHandshake, 
   Award,
   MapPin,
-  Clock
+  Clock,
+  ExternalLink
 } from 'lucide-react';
 import scheduleSnapshot from '../data/schedule.json';
 
 export const Home: React.FC = () => {
-  // Show upcoming matches, up to 3
+  // Real upcoming matches from schedule data (up to 3)
   const upcomingMatches = (scheduleSnapshot.matches as Array<{
     id?: number;
     opponent: string;
@@ -90,7 +91,7 @@ export const Home: React.FC = () => {
       <section className="section" style={{ paddingTop: '50px' }}>
         <div className="container">
 
-          {/* Upcoming Matches Section (Up to 3 Matches) */}
+          {/* Upcoming Matches Section */}
           <div style={{ marginBottom: '55px' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: '24px' }}>
               <div>
@@ -103,56 +104,82 @@ export const Home: React.FC = () => {
                 </h2>
               </div>
               <a href="fixtures.html" className="btn btn-secondary" style={{ padding: '8px 20px', fontSize: '0.82rem' }}>
-                View All Fixtures →
+                View All {scheduleSnapshot.matches.length} Results →
               </a>
             </div>
 
-            <div className="home-upcoming-grid">
-              {upcomingMatches.map((match, idx) => (
-                <div key={match.id || idx} className="glass-card home-upcoming-card">
-                  <div className="upcoming-card-header">
-                    <span className="upcoming-type-badge" title={match.type}>{match.type}</span>
-                    <span className="upcoming-status-pill">Upcoming</span>
-                  </div>
+            {upcomingMatches.length > 0 ? (
+              <div className="home-upcoming-grid">
+                {upcomingMatches.map((match, idx) => (
+                  <div key={match.id || idx} className="glass-card home-upcoming-card">
+                    <div className="upcoming-card-header">
+                      <span className="upcoming-type-badge" title={match.type}>{match.type}</span>
+                      <span className="upcoming-status-pill">Upcoming</span>
+                    </div>
 
-                  <div className="upcoming-date-row">
-                    <Clock size={14} color="var(--gold-light)" />
-                    <span>{match.date} · {match.time}</span>
-                  </div>
+                    <div className="upcoming-date-row">
+                      <Clock size={14} color="var(--gold-light)" />
+                      <span>{match.date} · {match.time}</span>
+                    </div>
 
-                  {/* Matchup */}
-                  <div className="upcoming-matchup">
-                    <div className="upcoming-team">
-                      <div className="upcoming-crest">
-                        <img src="./images/brand/bcc-logo.jpg" alt="Bharat Cricket Club Logo" />
+                    <div className="upcoming-matchup">
+                      <div className="upcoming-team">
+                        <div className="upcoming-crest">
+                          <img src="./images/brand/bcc-logo.jpg" alt="Bharat Cricket Club Logo" />
+                        </div>
+                        <span className="upcoming-team-name">Bharat CC</span>
                       </div>
-                      <span className="upcoming-team-name">Bharat CC</span>
-                    </div>
 
-                    <div className="upcoming-vs-badge">VS</div>
+                      <div className="upcoming-vs-badge">VS</div>
 
-                    <div className="upcoming-team">
-                      <div className="upcoming-crest opp">
-                        <span>🏏</span>
+                      <div className="upcoming-team">
+                        <div className="upcoming-crest opp">
+                          <span>🏏</span>
+                        </div>
+                        <span className="upcoming-team-name">{match.opponent}</span>
                       </div>
-                      <span className="upcoming-team-name">{match.opponent}</span>
                     </div>
-                  </div>
 
-                  {/* Venue & Action */}
-                  <div className="upcoming-footer">
-                    <div className="upcoming-venue" title={match.venue}>
-                      <MapPin size={13} color="var(--gold-light)" style={{ flexShrink: 0 }} />
-                      <span>{match.venue}</span>
+                    <div className="upcoming-footer">
+                      <div className="upcoming-venue" title={match.venue}>
+                        <MapPin size={13} color="var(--gold-light)" style={{ flexShrink: 0 }} />
+                        <span>{match.venue}</span>
+                      </div>
+                      <a href="fixtures.html" className="btn-scorecard" style={{ padding: '5px 12px', fontSize: '0.78rem', textDecoration: 'none' }}>
+                        <span>Details</span>
+                        <ArrowRight size={12} />
+                      </a>
                     </div>
-                    <a href="fixtures.html" className="btn-scorecard" style={{ padding: '5px 12px', fontSize: '0.78rem', textDecoration: 'none' }}>
-                      <span>Details</span>
-                      <ArrowRight size={12} />
-                    </a>
                   </div>
+                ))}
+              </div>
+            ) : (
+              /* No scheduled upcoming matches currently */
+              <div className="glass-card" style={{ padding: '36px 24px', textAlign: 'center', border: '1.5px solid rgba(216, 144, 24, 0.25)', background: 'linear-gradient(160deg, rgba(14, 34, 68, 0.5) 0%, rgba(7, 20, 40, 0.8) 100%)', borderRadius: '14px' }}>
+                <div style={{ fontSize: '2.4rem', marginBottom: '10px' }}>🏏</div>
+                <h3 className="font-oswald" style={{ fontSize: '1.35rem', color: '#fff', textTransform: 'uppercase', marginBottom: '8px' }}>
+                  No Upcoming Matches Scheduled
+                </h3>
+                <p style={{ color: 'rgba(255, 255, 255, 0.65)', maxWidth: '560px', margin: '0 auto 20px', fontSize: '0.92rem', lineHeight: '1.5' }}>
+                  All scheduled Fall 2026 matches have concluded. Stay tuned for upcoming tournament announcements and playoff fixtures.
+                </p>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
+                  <a href="fixtures.html" className="btn btn-primary" style={{ padding: '9px 22px', fontSize: '0.85rem' }}>
+                    View Completed Match Results ({scheduleSnapshot.matches.length})
+                  </a>
+                  <a 
+                    href="https://www.dallascricket.org/team/308/schedules" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="btn btn-secondary" 
+                    style={{ padding: '9px 20px', fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                  >
+                    <span>DCL Portal</span>
+                    <ExternalLink size={13} />
+                  </a>
                 </div>
-              ))}
-            </div>
+              </div>
+            )}
           </div>
 
           {/* Section Heading */}
