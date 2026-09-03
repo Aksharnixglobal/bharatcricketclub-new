@@ -244,16 +244,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-light) 100%);
-  color: #07111f;
-  border: none;
-  box-shadow: 0 4px 12px rgba(216, 144, 24, 0.2);
+  background: linear-gradient(135deg, #B87A14 0%, #D89018 50%, #F5C040 100%);
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  font-weight: 800;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 14px rgba(216, 144, 24, 0.35);
 }
 
 .btn-primary:hover {
-  opacity: 0.9;
+  opacity: 0.95;
+  color: #ffffff !important;
   transform: translateY(-1px);
-  box-shadow: var(--shadow-glow);
+  box-shadow: 0 0 24px rgba(216, 144, 24, 0.5);
 }
 
 .btn-secondary {
@@ -570,13 +573,17 @@ h1, h2, h3, h4, h5, h6 {
   width: 54px;
   height: 54px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-color);
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(216, 144, 24, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.3rem;
   transition: var(--transition);
+  padding: 2px;
+  box-shadow: 0 0 14px rgba(216, 144, 24, 0.2);
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
 .team-logo img {
@@ -584,10 +591,12 @@ h1, h2, h3, h4, h5, h6 {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
+  display: block;
 }
 
 .match-card:hover .team-logo {
-  border-color: var(--gold);
+  border-color: var(--gold-light);
+  box-shadow: 0 0 18px rgba(216, 144, 24, 0.45);
 }
 
 .team-name {
@@ -768,9 +777,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .fixtures-pill {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border-color);
-  color: var(--text-muted-light);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(216, 144, 24, 0.25);
+  color: rgba(255, 255, 255, 0.9);
   padding: 6px 14px;
   border-radius: 20px;
   font-family: var(--font-oswald);
@@ -787,28 +796,31 @@ h1, h2, h3, h4, h5, h6 {
 
 .fixtures-pill:hover {
   border-color: var(--gold);
-  color: var(--gold-light);
-  background: rgba(216, 144, 24, 0.08);
+  color: #ffffff;
+  background: rgba(216, 144, 24, 0.15);
 }
 
 .fixtures-pill.active {
-  background: var(--gold-gradient);
-  border-color: var(--gold);
-  color: #050b14;
+  background: linear-gradient(135deg, #B87A14 0%, #D89018 50%, #F5C040 100%);
+  border-color: var(--gold-light);
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
   font-weight: 700;
-  box-shadow: 0 0 15px rgba(216, 144, 24, 0.3);
+  box-shadow: 0 0 16px rgba(216, 144, 24, 0.4);
 }
 
 .pill-count {
   font-size: 0.75rem;
-  background: rgba(0, 0, 0, 0.25);
-  padding: 1px 7px;
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--gold-light);
+  padding: 2px 8px;
   border-radius: 10px;
+  font-weight: 700;
 }
 
 .fixtures-pill.active .pill-count {
-  background: rgba(5, 11, 20, 0.25);
-  color: #050b14;
+  background: rgba(0, 0, 0, 0.45);
+  color: #ffffff !important;
 }
 
 .fixtures-actions {

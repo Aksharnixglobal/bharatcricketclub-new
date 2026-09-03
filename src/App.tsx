@@ -497,7 +497,9 @@ export default function App() {
                   </div>
                   <div className="match-teams">
                     <div className="team">
-                      <div className="team-logo">🏏</div>
+                      <div className="team-logo">
+                        <img src="./images/brand/bcc-logo.jpg" alt="Bharat Cricket Club Logo" />
+                      </div>
                       <div className="team-name">Bharat CC</div>
                       {match.status === 'completed' && match.ourScore !== undefined && (
                         <div className="team-score">
