@@ -2336,6 +2336,165 @@ h1, h2, h3, h4, h5, h6 {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* Home Upcoming Matches (Up to 3) */
+.home-upcoming-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: 22px;
+  width: 100%;
+}
+
+.home-upcoming-card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(160deg, rgba(14, 34, 68, 0.75) 0%, rgba(7, 20, 40, 0.95) 100%);
+  border: 1.5px solid rgba(216, 144, 24, 0.3);
+  border-radius: 14px;
+  transition: var(--transition);
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.home-upcoming-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(216, 144, 24, 0.6);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(216, 144, 24, 0.12);
+}
+
+.upcoming-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.upcoming-type-badge {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+.upcoming-status-pill {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  background: rgba(216, 144, 24, 0.15);
+  border: 1px solid rgba(216, 144, 24, 0.35);
+  padding: 3px 8px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.upcoming-date-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-oswald);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 18px;
+}
+
+.upcoming-matchup {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 16px 12px;
+  margin-bottom: 18px;
+}
+
+.upcoming-team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+.upcoming-crest {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(216, 144, 24, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(216, 144, 24, 0.2);
+}
+
+.upcoming-crest img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.upcoming-crest.opp {
+  font-size: 1.3rem;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.upcoming-team-name {
+  font-family: var(--font-oswald);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.upcoming-vs-badge {
+  font-family: var(--font-oswald);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2px 7px;
+  border-radius: 10px;
+}
+
+.upcoming-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.upcoming-venue {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* League Cards */
 .league-card {
   padding: 28px;

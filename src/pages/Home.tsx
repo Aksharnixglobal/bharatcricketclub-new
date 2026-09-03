@@ -10,10 +10,24 @@ import {
   HeartHandshake, 
   Award,
   MapPin,
-  ExternalLink
+  Clock
 } from 'lucide-react';
+import scheduleSnapshot from '../data/schedule.json';
 
 export const Home: React.FC = () => {
+  // Show upcoming matches, up to 3
+  const upcomingMatches = (scheduleSnapshot.matches as Array<{
+    id?: number;
+    opponent: string;
+    date: string;
+    time: string;
+    venue: string;
+    status: string;
+    type: string;
+  }>)
+    .filter(m => m.status === 'upcoming' || m.status === 'live')
+    .slice(0, 3);
+
   return (
     <>
       <Navbar currentPage="home" />
@@ -76,80 +90,68 @@ export const Home: React.FC = () => {
       <section className="section" style={{ paddingTop: '50px' }}>
         <div className="container">
 
-          {/* Latest Match Spotlight Banner */}
-          <div className="home-match-spotlight">
-            <div className="spotlight-top-bar">
-              <div className="spotlight-tag">
-                <Trophy size={15} />
-                <span>Featured Match Result · DLCL Fall 30-Over Tournament</span>
+          {/* Upcoming Matches Section (Up to 3 Matches) */}
+          <div style={{ marginBottom: '55px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: '24px' }}>
+              <div>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'var(--gold-light)', fontSize: '0.78rem', fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: '4px' }}>
+                  <Calendar size={14} />
+                  <span>Next On The Pitch</span>
+                </div>
+                <h2 className="section-title" style={{ textAlign: 'left', margin: 0, fontSize: '1.9rem' }}>
+                  Upcoming Matches
+                </h2>
               </div>
-              <div className="spotlight-status">
-                ✓ Victory by 6 Wickets
-              </div>
+              <a href="fixtures.html" className="btn btn-secondary" style={{ padding: '8px 20px', fontSize: '0.82rem' }}>
+                View All Fixtures →
+              </a>
             </div>
 
-            <div className="spotlight-scoreboard">
-              <div className="spotlight-team">
-                <div className="spotlight-team-icon">
-                  <img 
-                    src="./images/brand/bcc-logo.jpg" 
-                    alt="Bharat Cricket Club Logo" 
-                    style={{ width: '56px', height: '56px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--gold-light)', boxShadow: '0 0 14px rgba(216,144,24,0.35)', display: 'block' }} 
-                  />
+            <div className="home-upcoming-grid">
+              {upcomingMatches.map((match, idx) => (
+                <div key={match.id || idx} className="glass-card home-upcoming-card">
+                  <div className="upcoming-card-header">
+                    <span className="upcoming-type-badge" title={match.type}>{match.type}</span>
+                    <span className="upcoming-status-pill">Upcoming</span>
+                  </div>
+
+                  <div className="upcoming-date-row">
+                    <Clock size={14} color="var(--gold-light)" />
+                    <span>{match.date} · {match.time}</span>
+                  </div>
+
+                  {/* Matchup */}
+                  <div className="upcoming-matchup">
+                    <div className="upcoming-team">
+                      <div className="upcoming-crest">
+                        <img src="./images/brand/bcc-logo.jpg" alt="Bharat Cricket Club Logo" />
+                      </div>
+                      <span className="upcoming-team-name">Bharat CC</span>
+                    </div>
+
+                    <div className="upcoming-vs-badge">VS</div>
+
+                    <div className="upcoming-team">
+                      <div className="upcoming-crest opp">
+                        <span>🏏</span>
+                      </div>
+                      <span className="upcoming-team-name">{match.opponent}</span>
+                    </div>
+                  </div>
+
+                  {/* Venue & Action */}
+                  <div className="upcoming-footer">
+                    <div className="upcoming-venue" title={match.venue}>
+                      <MapPin size={13} color="var(--gold-light)" style={{ flexShrink: 0 }} />
+                      <span>{match.venue}</span>
+                    </div>
+                    <a href="fixtures.html" className="btn-scorecard" style={{ padding: '5px 12px', fontSize: '0.78rem', textDecoration: 'none' }}>
+                      <span>Details</span>
+                      <ArrowRight size={12} />
+                    </a>
+                  </div>
                 </div>
-                <div className="spotlight-team-name">Bharat CC</div>
-                <div className="spotlight-score">113/4</div>
-                <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', marginTop: '2px' }}>Target: 113 in 30 Ov</div>
-              </div>
-
-              <div className="spotlight-vs">VS</div>
-
-              <div className="spotlight-team">
-                <div className="spotlight-team-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <svg viewBox="0 0 44 44" width="56" height="56" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="22" cy="22" r="21" fill="#08172c" stroke="rgba(216, 144, 24, 0.45)" strokeWidth="1.5" />
-                    <line x1="17" y1="16" x2="17" y2="32" stroke="rgba(255,255,255,0.4)" strokeWidth="1.6" strokeLinecap="round"/>
-                    <line x1="22" y1="15" x2="22" y2="32" stroke="rgba(255,255,255,0.4)" strokeWidth="1.6" strokeLinecap="round"/>
-                    <line x1="27" y1="16" x2="27" y2="32" stroke="rgba(255,255,255,0.4)" strokeWidth="1.6" strokeLinecap="round"/>
-                    <line x1="15.5" y1="15" x2="28.5" y2="15" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" strokeLinecap="round"/>
-                    <path d="M12 11 L32 35" stroke="#E5A824" strokeWidth="2.8" strokeLinecap="round"/>
-                    <path d="M32 11 L12 35" stroke="#E5A824" strokeWidth="2.8" strokeLinecap="round"/>
-                    <path d="M11 10 L15 15" stroke="#ffffff" strokeWidth="3.2" strokeLinecap="round"/>
-                    <path d="M33 10 L29 15" stroke="#ffffff" strokeWidth="3.2" strokeLinecap="round"/>
-                    <circle cx="22" cy="25" r="5.5" fill="#dc2626" stroke="#ffffff" strokeWidth="0.8"/>
-                    <path d="M20 22 C21.5 24 21.5 26 20 28" stroke="#ffffff" strokeWidth="0.8" strokeDasharray="1 1"/>
-                  </svg>
-                </div>
-                <div className="spotlight-team-name">SPARTANS 11</div>
-                <div className="spotlight-score" style={{ color: 'rgba(255,255,255,0.7)' }}>112/10</div>
-                <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', marginTop: '2px' }}>All Out</div>
-              </div>
-            </div>
-
-            <div className="spotlight-footer">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem' }}>
-                <MapPin size={14} color="var(--gold-light)" />
-                <span>Trenton Cricket Ground North · Aug 30, 2026</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-                <a 
-                  href="https://www.dallascricket.org/match/6021/scorecard-view" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="btn-scorecard"
-                  style={{ textDecoration: 'none' }}
-                >
-                  <span>Official Scorecard</span>
-                  <ExternalLink size={12} />
-                </a>
-                <a 
-                  href="fixtures.html" 
-                  className="btn-squad-link"
-                  style={{ textDecoration: 'none' }}
-                >
-                  <span>All 14 Fall Fixtures →</span>
-                </a>
-              </div>
+              ))}
             </div>
           </div>
 
