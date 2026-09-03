@@ -1067,7 +1067,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .panel-table-head {
   display: grid;
-  grid-template-columns: 240px minmax(380px, 1.4fr) minmax(260px, 1.1fr) 230px 130px;
+  grid-template-columns: 240px minmax(380px, 1.4fr) minmax(260px, 1.1fr) minmax(330px, 1fr);
   padding: 16px 24px;
   background: rgba(10, 25, 47, 0.95);
   border-bottom: 1.5px solid rgba(216, 144, 24, 0.25);
@@ -1081,6 +1081,13 @@ h1, h2, h3, h4, h5, h6 {
   gap: 20px;
 }
 
+.panel-head-outcome-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .panel-table-body {
   display: flex;
   flex-direction: column;
@@ -1088,7 +1095,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .panel-table-row {
   display: grid;
-  grid-template-columns: 240px minmax(380px, 1.4fr) minmax(260px, 1.1fr) 230px 130px;
+  grid-template-columns: 240px minmax(380px, 1.4fr) minmax(260px, 1.1fr) minmax(330px, 1fr);
   padding: 18px 24px;
   align-items: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
@@ -1116,6 +1123,16 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
   gap: 6px;
   min-width: 0;
+}
+
+.panel-meta-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.panel-meta-status {
+  display: flex;
 }
 
 .panel-date-badge {
@@ -1187,10 +1204,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .panel-team-crest.opp-crest {
-  background: transparent;
-  border: none;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
   box-shadow: none;
-  padding: 0;
+  font-size: 1.25rem;
 }
 
 .panel-team-title {
@@ -1260,10 +1277,17 @@ h1, h2, h3, h4, h5, h6 {
   white-space: nowrap;
 }
 
+/* Outcome & Scorecard Action Group (One Line) */
+.panel-col-outcome-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  width: 100%;
+}
+
 .panel-col-result {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
   min-width: 0;
 }
 
@@ -1302,12 +1326,12 @@ h1, h2, h3, h4, h5, h6 {
 /* Tablet & Mobile Breakpoints for Panel Table */
 @media (max-width: 1180px) {
   .panel-table-head {
-    grid-template-columns: 200px 1.3fr 1fr 190px 120px;
+    grid-template-columns: 200px 1.3fr 1fr 280px;
     padding: 14px 18px;
     gap: 14px;
   }
   .panel-table-row {
-    grid-template-columns: 200px 1.3fr 1fr 190px 120px;
+    grid-template-columns: 200px 1.3fr 1fr 280px;
     padding: 16px 18px;
     gap: 14px;
   }
@@ -1317,31 +1341,87 @@ h1, h2, h3, h4, h5, h6 {
   .panel-table-head {
     display: none;
   }
+  
   .panel-table-row {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 16px;
-    padding: 22px 20px;
+    gap: 14px;
+    padding: 18px 16px;
     border-bottom: 1.5px solid rgba(216, 144, 24, 0.2);
   }
+
+  /* Move completed status on right in phone view */
+  .panel-col-meta {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .panel-meta-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .panel-meta-status {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
   .panel-col-matchup {
     background: rgba(0, 0, 0, 0.25);
-    padding: 14px 18px;
+    padding: 14px 16px;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.06);
     flex-direction: column;
     gap: 12px;
   }
+
   .panel-team-entry.reverse {
     justify-content: flex-start;
     text-align: left;
     flex-direction: row-reverse;
   }
+
+  .panel-col-venue {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  /* Organize Result outcome badge and Scorecard button to be in ONE LINE */
+  .panel-col-outcome-action {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .panel-col-result {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+  }
+
   .panel-col-action {
-    justify-content: flex-start;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
   }
 }
+
 
 /* Leaders / Roster Section */
 .leaders-grid {

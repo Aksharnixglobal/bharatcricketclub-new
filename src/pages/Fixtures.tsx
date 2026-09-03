@@ -219,8 +219,10 @@ export const Fixtures: React.FC = () => {
                 <div>Date & Tournament</div>
                 <div>Matchup & Scores</div>
                 <div>Venue & Time</div>
-                <div>Result / Status</div>
-                <div style={{ textAlign: 'right' }}>Scorecard</div>
+                <div className="panel-head-outcome-action">
+                  <span>Result</span>
+                  <span>Scorecard</span>
+                </div>
               </div>
 
               {/* Panel Body */}
@@ -232,29 +234,33 @@ export const Fixtures: React.FC = () => {
                       
                       {/* Col 1: Date & League */}
                       <div className="panel-col-meta">
-                        <div className="panel-date-badge">
-                          <Calendar size={14} color="var(--gold-light)" />
-                          <span>{match.date}</span>
+                        <div className="panel-meta-info">
+                          <div className="panel-date-badge">
+                            <Calendar size={14} color="var(--gold-light)" />
+                            <span>{match.date}</span>
+                          </div>
+                          {match.id ? (
+                            <a 
+                              href={`https://www.dallascricket.org/match/${match.id}/scorecard-view`}
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="panel-type-text"
+                              title={match.type}
+                            >
+                              {match.type}
+                            </a>
+                          ) : (
+                            <span className="panel-type-text" title={match.type}>{match.type}</span>
+                          )}
                         </div>
-                        {match.id ? (
-                          <a 
-                            href={`https://www.dallascricket.org/match/${match.id}/scorecard-view`}
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="panel-type-text"
-                            title={match.type}
-                          >
-                            {match.type}
-                          </a>
-                        ) : (
-                          <span className="panel-type-text" title={match.type}>{match.type}</span>
-                        )}
-                        <span className={`match-status ${
-                          match.status === 'completed' ? 'status-completed' : 
-                          match.status === 'live' ? 'status-live' : 'status-upcoming'
-                        }`} style={{ width: 'fit-content', marginTop: '2px' }}>
-                          {match.status}
-                        </span>
+                        <div className="panel-meta-status">
+                          <span className={`match-status ${
+                            match.status === 'completed' ? 'status-completed' : 
+                            match.status === 'live' ? 'status-live' : 'status-upcoming'
+                          }`}>
+                            {match.status}
+                          </span>
+                        </div>
                       </div>
 
                       {/* Col 2: Matchup & Scores */}
@@ -305,35 +311,36 @@ export const Fixtures: React.FC = () => {
                         )}
                       </div>
 
-                      {/* Col 4: Result / Status */}
-                      <div className="panel-col-result">
-                        {match.status === 'completed' ? (
-                          <span className={`panel-outcome-badge ${outcome.isWin ? '' : 'loss'}`}>
-                            {outcome.text}
-                          </span>
-                        ) : (
-                          <span className="panel-outcome-badge upcoming">
-                            Upcoming · {match.time || 'TBD'}
-                          </span>
-                        )}
-                      </div>
+                      {/* Col 4: Result & Scorecard Action (One Line) */}
+                      <div className="panel-col-outcome-action">
+                        <div className="panel-col-result">
+                          {match.status === 'completed' ? (
+                            <span className={`panel-outcome-badge ${outcome.isWin ? '' : 'loss'}`}>
+                              {outcome.text}
+                            </span>
+                          ) : (
+                            <span className="panel-outcome-badge upcoming">
+                              Upcoming · {match.time || 'TBD'}
+                            </span>
+                          )}
+                        </div>
 
-                      {/* Col 5: Action */}
-                      <div className="panel-col-action">
-                        {match.id ? (
-                          <a 
-                            href={`https://www.dallascricket.org/match/${match.id}/scorecard-view`}
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            className="btn-scorecard"
-                            title={`View official scorecard on Dallas Cricket League`}
-                          >
-                            <span>Scorecard</span>
-                            <ExternalLink size={12} />
-                          </a>
-                        ) : (
-                          <span style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.3)' }}>—</span>
-                        )}
+                        <div className="panel-col-action">
+                          {match.id ? (
+                            <a 
+                              href={`https://www.dallascricket.org/match/${match.id}/scorecard-view`}
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              className="btn-scorecard"
+                              title={`View official scorecard on Dallas Cricket League`}
+                            >
+                              <span>Scorecard</span>
+                              <ExternalLink size={12} />
+                            </a>
+                          ) : (
+                            <span style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.3)' }}>—</span>
+                          )}
+                        </div>
                       </div>
 
                     </div>
