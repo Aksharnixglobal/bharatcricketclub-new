@@ -207,6 +207,38 @@ async function sync() {
   const completedCount = parsed.filter(m => m.status === 'completed').length;
   console.log(`[Sync] Processed: ${upcomingCount} upcoming/live matches, ${completedCount} completed matches.`);
 
+  // Ensure output directories exist
+  const srcDataDir = path.join(ROOT_DIR, 'src', 'data');
+  const publicDataDir = path.join(ROOT_DIR, 'public', 'data');
+
+  fs.mkdirSync(srcDataDir, { recursive: true });
+  fs.mkdirSync(publicDataDir, { recursive: true });
+
+  const srcPath = path.join(srcDataDir, 'schedule.json');
+  const publicPath = path.join(publicDataDir, 'schedule.json');
+
+  // Check if matches have actually changed before modifying files
+  let hasChanges = true;
+  if (fs.existsSync(srcPath)) {
+    try {
+      const existing = JSON.parse(fs.readFileSync(srcPath, 'utf-8'));
+      if (existing && Array.isArray(existing.matches)) {
+        const existingMatchesStr = JSON.stringify(existing.matches);
+        const newMatchesStr = JSON.stringify(parsed);
+        if (existingMatchesStr === newMatchesStr && fs.existsSync(publicPath)) {
+          hasChanges = false;
+        }
+      }
+    } catch {
+      hasChanges = true;
+    }
+  }
+
+  if (!hasChanges) {
+    console.log('[Sync] Schedule data is identical to current data. No changes detected.');
+    return;
+  }
+
   const schedulePayload = {
     teamId: DCL_TEAM_ID,
     teamName: 'Bharat Cricket Club',
@@ -219,21 +251,11 @@ async function sync() {
     matches: parsed
   };
 
-  // Ensure output directories exist
-  const srcDataDir = path.join(ROOT_DIR, 'src', 'data');
-  const publicDataDir = path.join(ROOT_DIR, 'public', 'data');
-
-  fs.mkdirSync(srcDataDir, { recursive: true });
-  fs.mkdirSync(publicDataDir, { recursive: true });
-
-  const srcPath = path.join(srcDataDir, 'schedule.json');
-  const publicPath = path.join(publicDataDir, 'schedule.json');
-
   const jsonContent = JSON.stringify(schedulePayload, null, 2) + '\n';
   fs.writeFileSync(srcPath, jsonContent, 'utf-8');
   fs.writeFileSync(publicPath, jsonContent, 'utf-8');
 
-  console.log(`[Sync] Successfully wrote updated schedules to:`);
+  console.log(`[Sync] Changes detected! Successfully wrote updated schedules to:`);
   console.log(`  - ${srcPath}`);
   console.log(`  - ${publicPath}`);
 }
