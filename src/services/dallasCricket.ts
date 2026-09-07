@@ -6,6 +6,7 @@ export interface Match {
   time: string;
   venue: string;
   status: 'live' | 'upcoming' | 'completed';
+  stage?: string;
   type: string;
   season?: string;
   ourScore?: string;
@@ -23,6 +24,8 @@ export interface RawDCLMatch {
   mst_tournament_id?: number;
   tournament_name?: string;
   league?: string;
+  name?: string;
+  stage?: string;
   team1_id: number;
   team2_id: number;
   team1Name?: string;
@@ -132,6 +135,10 @@ export function parseDCLMatch(m: RawDCLMatch): Match {
     }
   }
 
+  const stageName = (m.name && m.name.toLowerCase() !== 'league') ? m.name : undefined;
+  const tournamentTitle = m.tournament_name || m.league || 'DLCL Tournament';
+  const displayType = stageName ? `${tournamentTitle} • ${stageName}` : tournamentTitle;
+
   return {
     id: m.id,
     opponent,
@@ -139,7 +146,8 @@ export function parseDCLMatch(m: RawDCLMatch): Match {
     time: timeFormatted,
     venue,
     status,
-    type: m.tournament_name || m.league || 'DLCL Tournament',
+    stage: stageName,
+    type: displayType,
     season: (m.tournament_name || '').includes('Fall') ? 'Fall 2026' : (m.tournament_name || '').includes('Summer') ? 'Summer 2026' : 'Other',
     ourScore,
     ourWickets,
@@ -203,45 +211,8 @@ async function fetchAllFromBaseUrl(baseUrl: string): Promise<RawDCLMatch[]> {
  * Fetches schedules for Bharat CC (Team 308) from Dallas Cricket League on demand.
  * Tries Vite dev proxy in local development, and CORS proxy in production.
  */
-export async function fetchLiveSchedules(teamId: number = DCL_TEAM_ID): Promise<Match[]> {
-  const isDev = import.meta.env.DEV;
-  
-  // Build candidate URLs in order of preference
-  const urls: string[] = [];
-  if (isDev) {
-    // Vite dev server proxy
-    urls.push(`/api/dcl/api/schedules/${teamId}?teamId=${teamId}`);
-  }
-  // Public CORS proxies that support port 3000
-  urls.push(`https://cors.eu.org/https://dallascricket.org:3000/api/schedules/${teamId}?teamId=${teamId}`);
-
-  let rawList: RawDCLMatch[] = [];
-  let fetchError: unknown = null;
-
-  for (const url of urls) {
-    try {
-      rawList = await fetchAllFromBaseUrl(url);
-      if (rawList && rawList.length > 0) {
-        break; // Successfully received data
-      }
-    } catch (err) {
-      fetchError = err;
-    }
-  }
-
-  if (rawList.length === 0 && fetchError) {
-    console.warn('Live DCL fetch failed, falling back to cached/local schedules:', fetchError);
-    // Check local storage
-    const cached = getCachedSchedules();
-    if (cached && cached.length > 0) {
-      return cached;
-    }
-  }
-
-  const parsed = rawList.map(parseDCLMatch);
-
-  // Sort: Upcoming and Live games first (closest date first), then Completed games (newest first)
-  parsed.sort((a, b) => {
+export function sortMatches(matches: Match[]): Match[] {
+  return matches.sort((a, b) => {
     if (a.status !== 'completed' && b.status === 'completed') return -1;
     if (a.status === 'completed' && b.status !== 'completed') return 1;
 
@@ -255,20 +226,75 @@ export async function fetchLiveSchedules(teamId: number = DCL_TEAM_ID): Promise<
     // Completed: descending (most recent first)
     return timeB - timeA;
   });
+}
 
-  // Cache to localStorage if in browser
-  if (typeof window !== 'undefined' && parsed.length > 0) {
+export function cacheSchedules(matches: Match[]): void {
+  if (typeof window === 'undefined' || !matches || matches.length === 0) return;
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      data: matches,
+      timestamp: Date.now()
+    }));
+  } catch {
+    // Ignore quota errors
+  }
+}
+
+/**
+ * Fetches schedules for Bharat CC (Team 308) from Dallas Cricket League on demand.
+ * 1. In dev mode: uses Vite dev server proxy to DCL.
+ * 2. In production: fetches same-origin ./data/schedule.json (synced automatically by GitHub Actions).
+ * 3. Falls back to localStorage cache.
+ */
+export async function fetchLiveSchedules(teamId: number = DCL_TEAM_ID): Promise<Match[]> {
+  const isDev = import.meta.env.DEV;
+  
+  // 1. In dev mode, query Vite dev proxy
+  if (isDev) {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({
-        data: parsed,
-        timestamp: Date.now()
-      }));
-    } catch {
-      // Ignore quota errors
+      const rawList = await fetchAllFromBaseUrl(`/api/dcl/api/schedules/${teamId}?teamId=${teamId}`);
+      if (rawList && rawList.length > 0) {
+        const parsed = rawList.map(parseDCLMatch);
+        sortMatches(parsed);
+        cacheSchedules(parsed);
+        return parsed;
+      }
+    } catch (err) {
+      console.warn('Dev proxy fetch failed, falling back to static schedule:', err);
     }
   }
 
-  return parsed;
+  // 2. Fetch the same-origin static schedule JSON (synced by GitHub Actions & build scripts)
+  // This is zero-CORS, instant, never rate-limited, and always reliable.
+  const staticUrls = [
+    `./data/schedule.json?t=${Date.now()}`,
+    `/data/schedule.json?t=${Date.now()}`
+  ];
+
+  for (const url of staticUrls) {
+    try {
+      const res = await fetch(url);
+      if (res.ok) {
+        const json = await res.json();
+        if (json && Array.isArray(json.matches) && json.matches.length > 0) {
+          const matches: Match[] = json.matches;
+          sortMatches(matches);
+          cacheSchedules(matches);
+          return matches;
+        }
+      }
+    } catch {
+      // Continue to next URL
+    }
+  }
+
+  // 3. Fallback to localStorage cache
+  const cached = getCachedSchedules();
+  if (cached && cached.length > 0) {
+    return cached;
+  }
+
+  return [];
 }
 
 // Read cached schedules from localStorage for instant initial paint

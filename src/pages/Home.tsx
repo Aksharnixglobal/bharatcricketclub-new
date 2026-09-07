@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { 
@@ -14,40 +14,38 @@ import {
   ExternalLink
 } from 'lucide-react';
 import scheduleSnapshot from '../data/schedule.json';
+import { fetchLiveSchedules, getCachedSchedules, type Match } from '../services/dallasCricket';
 
 export const Home: React.FC = () => {
+  const [matches, setMatches] = useState<Match[]>(() => {
+    const cached = getCachedSchedules();
+    if (cached && cached.length > 0) return cached;
+    return (scheduleSnapshot.matches as Match[]) || [];
+  });
+
+  useEffect(() => {
+    fetchLiveSchedules()
+      .then(live => {
+        if (live && live.length > 0) {
+          setMatches(live);
+        }
+      })
+      .catch(() => {
+        // Keep current matches
+      });
+  }, []);
+
   // Real upcoming matches from schedule data (up to 3)
-  const upcomingMatches = (scheduleSnapshot.matches as Array<{
-    id?: number;
-    opponent: string;
-    date: string;
-    time: string;
-    venue: string;
-    status: string;
-    type: string;
-  }>)
+  const upcomingMatches = matches
     .filter(m => m.status === 'upcoming' || m.status === 'live')
     .slice(0, 3);
 
   // Latest Victory (most recent win by Bharat Cricket Club)
-  const latestVictory = (scheduleSnapshot.matches as Array<{
-    id?: number;
-    opponent: string;
-    date: string;
-    time: string;
-    venue: string;
-    status: string;
-    type: string;
-    ourScore?: string;
-    ourWickets?: string;
-    oppScore?: string;
-    oppWickets?: string;
-    result?: string;
-  }>).find(m => 
+  const latestVictory = matches.find(m => 
     m.status === 'completed' && 
     (m.result?.toLowerCase().includes('bharat cricket club') || m.result?.toLowerCase().includes('bharat cc')) &&
     m.result?.toLowerCase().includes('won')
-  ) || scheduleSnapshot.matches[0];
+  ) || matches[0];
 
   return (
     <>
@@ -185,7 +183,7 @@ export const Home: React.FC = () => {
                 </p>
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
                   <a href="fixtures.html" className="btn btn-secondary" style={{ padding: '7px 18px', fontSize: '0.82rem' }}>
-                    View Match Results ({scheduleSnapshot.matches.length})
+                    View Match Results ({matches.length})
                   </a>
                   <a 
                     href="https://www.dallascricket.org/team/308/schedules" 

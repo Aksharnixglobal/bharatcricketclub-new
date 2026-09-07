@@ -4,11 +4,14 @@ on:
   push:
     branches:
       - main
+  schedule:
+    # Run every 3 hours to automatically sync latest DCL schedules
+    - cron: '0 */3 * * *'
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages and commit back schedule updates
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -28,11 +31,21 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
       - name: Install dependencies
         run: npm install
+
+      - name: Sync latest DCL schedule
+        run: npm run sync:schedule
+
+      - name: Commit updated schedule if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/schedule.json public/data/schedule.json
+          git diff --staged --quiet || (git commit -m "chore(schedule): auto-sync latest matches from DCL [skip ci]" && git push)
 
       - name: Build application
         run: npm run build
