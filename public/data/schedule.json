@@ -6,7 +6,7 @@
   "totalMatches": 25,
   "upcomingCount": 0,
   "completedCount": 25,
-  "updatedAt": "2026-09-13T15:01:52.219Z",
+  "updatedAt": "2026-09-13T18:02:31.539Z",
   "matches": [
     {
       "id": 6067,
@@ -18,11 +18,11 @@
       "stage": "Semi Final",
       "type": "DLCL Fall T20 Tournament 2026 • Semi Final",
       "season": "Fall 2026",
-      "ourScore": "1",
-      "ourWickets": "0",
+      "ourScore": "165",
+      "ourWickets": "3",
       "oppScore": "162",
       "oppWickets": "9",
-      "result": "Bharat Cricket Club   needs 162 runs in 117 balls to win",
+      "result": "Bharat Cricket Club   won by 7 wickets",
       "dclUrl": "https://www.dallascricket.org/team/308/schedules",
       "scorecardUrl": "https://www.dallascricket.org/match/6067/scorecard-view",
       "rawDate": "2026-09-13T07:30:00"
