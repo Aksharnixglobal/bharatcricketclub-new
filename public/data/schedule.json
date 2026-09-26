@@ -6,7 +6,7 @@
   "totalMatches": 28,
   "upcomingCount": 1,
   "completedCount": 27,
-  "updatedAt": "2026-09-26T18:02:16.543Z",
+  "updatedAt": "2026-09-26T21:01:50.915Z",
   "matches": [
     {
       "id": 6151,
@@ -31,11 +31,11 @@
       "status": "completed",
       "type": "DLCL Spring T20 Tournament 2027",
       "season": "Other",
-      "ourScore": "0",
-      "ourWickets": "0",
-      "oppScore": "212",
-      "oppWickets": "4",
-      "result": "Match Completed",
+      "ourScore": "76",
+      "ourWickets": "10",
+      "oppScore": "262",
+      "oppWickets": "8",
+      "result": "Punjabi Hood   won by 186 runs",
       "dclUrl": "https://www.dallascricket.org/team/308/schedules",
       "scorecardUrl": "https://www.dallascricket.org/match/6123/scorecard-view",
       "rawDate": "2026-09-26T11:30:00"
