@@ -4,24 +4,10 @@
   "season": "Fall 2026",
   "dclUrl": "https://www.dallascricket.org/team/308/schedules",
   "totalMatches": 31,
-  "upcomingCount": 3,
-  "completedCount": 28,
-  "updatedAt": "2026-10-07T18:03:04.737Z",
+  "upcomingCount": 2,
+  "completedCount": 29,
+  "updatedAt": "2026-10-17T18:02:41.030Z",
   "matches": [
-    {
-      "id": 6246,
-      "opponent": "Rcc Giant Strikers",
-      "date": "Oct 17, 2026",
-      "time": "12:00 PM",
-      "venue": "DFW Cricket Ground",
-      "status": "upcoming",
-      "type": "DLCL Spring 30 Over Tournament 2027",
-      "season": "Other",
-      "result": "Upcoming Fixture",
-      "dclUrl": "https://www.dallascricket.org/team/308/schedules",
-      "scorecardUrl": "https://www.dallascricket.org/match/6246/scorecard-view",
-      "rawDate": "2026-10-17T12:00:00"
-    },
     {
       "id": 6306,
       "opponent": "Wolves Cricket Club",
@@ -49,6 +35,24 @@
       "dclUrl": "https://www.dallascricket.org/team/308/schedules",
       "scorecardUrl": "https://www.dallascricket.org/match/6328/scorecard-view",
       "rawDate": "2026-10-31T08:00:00"
+    },
+    {
+      "id": 6246,
+      "opponent": "Rcc Giant Strikers",
+      "date": "Oct 17, 2026",
+      "time": "12:00 PM",
+      "venue": "DFW Cricket Ground",
+      "status": "completed",
+      "type": "DLCL Spring 30 Over Tournament 2027",
+      "season": "Other",
+      "ourScore": "66",
+      "ourWickets": "2",
+      "oppScore": "0",
+      "oppWickets": "0",
+      "result": "Match Completed",
+      "dclUrl": "https://www.dallascricket.org/team/308/schedules",
+      "scorecardUrl": "https://www.dallascricket.org/match/6246/scorecard-view",
+      "rawDate": "2026-10-17T12:00:00"
     },
     {
       "id": 6151,
