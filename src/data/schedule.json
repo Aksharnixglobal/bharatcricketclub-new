@@ -6,7 +6,7 @@
   "totalMatches": 31,
   "upcomingCount": 2,
   "completedCount": 29,
-  "updatedAt": "2026-10-17T18:02:41.030Z",
+  "updatedAt": "2026-10-17T21:01:56.133Z",
   "matches": [
     {
       "id": 6306,
@@ -45,11 +45,11 @@
       "status": "completed",
       "type": "DLCL Spring 30 Over Tournament 2027",
       "season": "Other",
-      "ourScore": "66",
-      "ourWickets": "2",
-      "oppScore": "0",
-      "oppWickets": "0",
-      "result": "Match Completed",
+      "ourScore": "124",
+      "ourWickets": "4",
+      "oppScore": "218",
+      "oppWickets": "10",
+      "result": "Bharat Cricket Club   needs 95 runs in 84 balls to win",
       "dclUrl": "https://www.dallascricket.org/team/308/schedules",
       "scorecardUrl": "https://www.dallascricket.org/match/6246/scorecard-view",
       "rawDate": "2026-10-17T12:00:00"
