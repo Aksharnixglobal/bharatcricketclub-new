@@ -6,7 +6,7 @@
   "totalMatches": 31,
   "upcomingCount": 2,
   "completedCount": 29,
-  "updatedAt": "2026-10-18T00:05:29.475Z",
+  "updatedAt": "2026-10-18T03:02:51.199Z",
   "matches": [
     {
       "id": 6306,
@@ -47,9 +47,9 @@
       "season": "Other",
       "ourScore": "221",
       "ourWickets": "8",
-      "oppScore": "218",
+      "oppScore": "217",
       "oppWickets": "10",
-      "result": "Bharat Cricket Club   won by 2 wickets",
+      "result": "Bharat Cricket Club is won by 2 wickets.",
       "dclUrl": "https://www.dallascricket.org/team/308/schedules",
       "scorecardUrl": "https://www.dallascricket.org/match/6246/scorecard-view",
       "rawDate": "2026-10-17T12:00:00"
