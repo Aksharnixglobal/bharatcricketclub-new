@@ -4,24 +4,10 @@
   "season": "Fall 2026",
   "dclUrl": "https://www.dallascricket.org/team/308/schedules",
   "totalMatches": 31,
-  "upcomingCount": 2,
-  "completedCount": 29,
-  "updatedAt": "2026-10-18T03:02:51.199Z",
+  "upcomingCount": 1,
+  "completedCount": 30,
+  "updatedAt": "2026-10-25T18:02:44.523Z",
   "matches": [
-    {
-      "id": 6306,
-      "opponent": "Wolves Cricket Club",
-      "date": "Oct 25, 2026",
-      "time": "12:00 PM",
-      "venue": "Spirit Park",
-      "status": "upcoming",
-      "type": "DLCL Spring 30 Over Tournament 2027",
-      "season": "Other",
-      "result": "Upcoming Fixture",
-      "dclUrl": "https://www.dallascricket.org/team/308/schedules",
-      "scorecardUrl": "https://www.dallascricket.org/match/6306/scorecard-view",
-      "rawDate": "2026-10-25T12:00:00"
-    },
     {
       "id": 6328,
       "opponent": "BCA Elites",
@@ -35,6 +21,24 @@
       "dclUrl": "https://www.dallascricket.org/team/308/schedules",
       "scorecardUrl": "https://www.dallascricket.org/match/6328/scorecard-view",
       "rawDate": "2026-10-31T08:00:00"
+    },
+    {
+      "id": 6306,
+      "opponent": "Wolves Cricket Club",
+      "date": "Oct 25, 2026",
+      "time": "12:00 PM",
+      "venue": "Spirit Park",
+      "status": "completed",
+      "type": "DLCL Spring 30 Over Tournament 2027",
+      "season": "Other",
+      "ourScore": "0",
+      "ourWickets": "0",
+      "oppScore": "57",
+      "oppWickets": "2",
+      "result": "Match Completed",
+      "dclUrl": "https://www.dallascricket.org/team/308/schedules",
+      "scorecardUrl": "https://www.dallascricket.org/match/6306/scorecard-view",
+      "rawDate": "2026-10-25T12:00:00"
     },
     {
       "id": 6246,
