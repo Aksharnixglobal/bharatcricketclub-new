@@ -6,7 +6,7 @@
   "totalMatches": 31,
   "upcomingCount": 1,
   "completedCount": 30,
-  "updatedAt": "2026-10-25T21:02:07.184Z",
+  "updatedAt": "2026-10-26T00:05:20.450Z",
   "matches": [
     {
       "id": 6328,
@@ -31,11 +31,11 @@
       "status": "completed",
       "type": "DLCL Spring 30 Over Tournament 2027",
       "season": "Other",
-      "ourScore": "60",
-      "ourWickets": "1",
+      "ourScore": "164",
+      "ourWickets": "10",
       "oppScore": "218",
       "oppWickets": "10",
-      "result": "Bharat Cricket Club   needs 159 runs in 127 balls to win",
+      "result": "Wolves Cricket Club   won by 54 runs",
       "dclUrl": "https://www.dallascricket.org/team/308/schedules",
       "scorecardUrl": "https://www.dallascricket.org/match/6306/scorecard-view",
       "rawDate": "2026-10-25T12:00:00"
