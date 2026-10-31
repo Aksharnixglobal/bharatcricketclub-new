@@ -6,7 +6,7 @@
   "totalMatches": 31,
   "upcomingCount": 1,
   "completedCount": 30,
-  "updatedAt": "2026-10-26T00:05:20.450Z",
+  "updatedAt": "2026-10-31T06:02:17.868Z",
   "matches": [
     {
       "id": 6328,
@@ -35,7 +35,7 @@
       "ourWickets": "10",
       "oppScore": "218",
       "oppWickets": "10",
-      "result": "Wolves Cricket Club   won by 54 runs",
+      "result": "Wolves Cricket Club is won by 54 runs.",
       "dclUrl": "https://www.dallascricket.org/team/308/schedules",
       "scorecardUrl": "https://www.dallascricket.org/match/6306/scorecard-view",
       "rawDate": "2026-10-25T12:00:00"
