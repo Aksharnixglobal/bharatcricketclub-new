@@ -6,7 +6,7 @@
   "totalMatches": 31,
   "upcomingCount": 0,
   "completedCount": 31,
-  "updatedAt": "2026-10-31T15:02:17.626Z",
+  "updatedAt": "2026-10-31T18:01:57.918Z",
   "matches": [
     {
       "id": 6328,
@@ -19,9 +19,9 @@
       "season": "Other",
       "ourScore": "237",
       "ourWickets": "9",
-      "oppScore": "0",
-      "oppWickets": "0",
-      "result": "Match Completed",
+      "oppScore": "133",
+      "oppWickets": "9",
+      "result": "BCA Elites   needs 105 runs in 24 balls to win",
       "dclUrl": "https://www.dallascricket.org/team/308/schedules",
       "scorecardUrl": "https://www.dallascricket.org/match/6328/scorecard-view",
       "rawDate": "2026-10-31T08:00:00"
