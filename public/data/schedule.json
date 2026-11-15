@@ -4,24 +4,10 @@
   "season": "Fall 2026",
   "dclUrl": "https://www.dallascricket.org/team/308/schedules",
   "totalMatches": 34,
-  "upcomingCount": 2,
-  "completedCount": 32,
-  "updatedAt": "2026-11-15T00:28:42.164Z",
+  "upcomingCount": 1,
+  "completedCount": 33,
+  "updatedAt": "2026-11-15T18:05:55.295Z",
   "matches": [
-    {
-      "id": 6461,
-      "opponent": "Dallas Prime XI",
-      "date": "Nov 15, 2026",
-      "time": "8:00 AM",
-      "venue": "DFW Cricket Ground",
-      "status": "upcoming",
-      "type": "DLCL Spring T20 Tournament 2027",
-      "season": "Other",
-      "result": "Upcoming Fixture",
-      "dclUrl": "https://www.dallascricket.org/team/308/schedules",
-      "scorecardUrl": "https://www.dallascricket.org/match/6461/scorecard-view",
-      "rawDate": "2026-11-15T08:00:00"
-    },
     {
       "id": 6540,
       "opponent": "Warriors Cricket Club",
@@ -37,6 +23,24 @@
       "rawDate": "2026-12-06T09:00:00"
     },
     {
+      "id": 6461,
+      "opponent": "Dallas Prime XI",
+      "date": "Nov 15, 2026",
+      "time": "8:00 AM",
+      "venue": "DFW Cricket Ground",
+      "status": "completed",
+      "type": "DLCL Spring T20 Tournament 2027",
+      "season": "Other",
+      "ourScore": "0",
+      "ourWickets": "0",
+      "oppScore": "0",
+      "oppWickets": "0",
+      "result": "This match has been stopped due to Rain or bad weather",
+      "dclUrl": "https://www.dallascricket.org/team/308/schedules",
+      "scorecardUrl": "https://www.dallascricket.org/match/6461/scorecard-view",
+      "rawDate": "2026-11-15T08:00:00"
+    },
+    {
       "id": 6422,
       "opponent": "Texas Thanos",
       "date": "Nov 14, 2026",
@@ -49,7 +53,7 @@
       "ourWickets": "10",
       "oppScore": "141",
       "oppWickets": "6",
-      "result": "Texas Thanos   won by 4 wickets",
+      "result": "Texas Thanos is won by 4 wickets.",
       "dclUrl": "https://www.dallascricket.org/team/308/schedules",
       "scorecardUrl": "https://www.dallascricket.org/match/6422/scorecard-view",
       "rawDate": "2026-11-14T11:45:00"
