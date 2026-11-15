@@ -6,7 +6,7 @@
   "totalMatches": 34,
   "upcomingCount": 2,
   "completedCount": 32,
-  "updatedAt": "2026-11-14T19:32:54.544Z",
+  "updatedAt": "2026-11-15T00:28:42.164Z",
   "matches": [
     {
       "id": 6461,
@@ -45,11 +45,11 @@
       "status": "completed",
       "type": "DLCL Spring 30 Over Tournament 2027",
       "season": "Other",
-      "ourScore": "76",
-      "ourWickets": "6",
-      "oppScore": "0",
-      "oppWickets": "0",
-      "result": "Match Completed",
+      "ourScore": "137",
+      "ourWickets": "10",
+      "oppScore": "141",
+      "oppWickets": "6",
+      "result": "Texas Thanos   won by 4 wickets",
       "dclUrl": "https://www.dallascricket.org/team/308/schedules",
       "scorecardUrl": "https://www.dallascricket.org/match/6422/scorecard-view",
       "rawDate": "2026-11-14T11:45:00"
