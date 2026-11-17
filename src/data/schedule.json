@@ -6,7 +6,7 @@
   "totalMatches": 34,
   "upcomingCount": 1,
   "completedCount": 33,
-  "updatedAt": "2026-11-15T18:05:55.295Z",
+  "updatedAt": "2026-11-17T05:29:36.811Z",
   "matches": [
     {
       "id": 6540,
@@ -35,7 +35,7 @@
       "ourWickets": "0",
       "oppScore": "0",
       "oppWickets": "0",
-      "result": "This match has been stopped due to Rain or bad weather",
+      "result": "This match has been stopped due to Rain or bad weather and match ended up tied",
       "dclUrl": "https://www.dallascricket.org/team/308/schedules",
       "scorecardUrl": "https://www.dallascricket.org/match/6461/scorecard-view",
       "rawDate": "2026-11-15T08:00:00"
