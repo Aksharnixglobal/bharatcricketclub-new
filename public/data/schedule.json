@@ -3,10 +3,10 @@
   "teamName": "Bharat Cricket Club",
   "season": "Fall 2026",
   "dclUrl": "https://www.dallascricket.org/team/308/schedules",
-  "totalMatches": 34,
-  "upcomingCount": 1,
+  "totalMatches": 36,
+  "upcomingCount": 3,
   "completedCount": 33,
-  "updatedAt": "2026-11-17T05:29:36.811Z",
+  "updatedAt": "2026-11-21T18:23:01.122Z",
   "matches": [
     {
       "id": 6540,
@@ -21,6 +21,34 @@
       "dclUrl": "https://www.dallascricket.org/team/308/schedules",
       "scorecardUrl": "https://www.dallascricket.org/match/6540/scorecard-view",
       "rawDate": "2026-12-06T09:00:00"
+    },
+    {
+      "id": 6613,
+      "opponent": "Texas Rebels Cricket Club",
+      "date": "Dec 19, 2026",
+      "time": "11:45 AM",
+      "venue": "Trenton Cricket Ground South",
+      "status": "upcoming",
+      "type": "DLCL Spring 30 Over Tournament 2027",
+      "season": "Other",
+      "result": "Upcoming Fixture",
+      "dclUrl": "https://www.dallascricket.org/team/308/schedules",
+      "scorecardUrl": "https://www.dallascricket.org/match/6613/scorecard-view",
+      "rawDate": "2026-12-19T11:45:00"
+    },
+    {
+      "id": 6626,
+      "opponent": "The AMPS CC",
+      "date": "Dec 20, 2026",
+      "time": "8:00 AM",
+      "venue": "Fort Worth Cricket Ground",
+      "status": "upcoming",
+      "type": "DLCL Spring T20 Tournament 2027",
+      "season": "Other",
+      "result": "Upcoming Fixture",
+      "dclUrl": "https://www.dallascricket.org/team/308/schedules",
+      "scorecardUrl": "https://www.dallascricket.org/match/6626/scorecard-view",
+      "rawDate": "2026-12-20T08:00:00"
     },
     {
       "id": 6461,
